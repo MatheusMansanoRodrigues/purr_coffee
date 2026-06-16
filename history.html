@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purr'Coffee — History</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/history.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"
+    />
+    <link rel="stylesheet" href="css/icons.css" />
+    <link rel="stylesheet" href="css/pix-modal.css" />
+  </head>
+  <body>
+    <div class="app-inner">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <img src="imgs/cabeca.png" alt="logo" class="logo-img" />
+            <span class="logo-text">Purr'Coffee</span>
+          </div>
+          <nav class="nav">
+            <a class="nav-link" href="home.html">
+              <i class="ph-bold ph-house"></i>Home page
+            </a>
+            <a class="nav-link" href="index.html">
+              <i class="ph-bold ph-list"></i>Menu
+            </a>
+            <a class="nav-link" href="orders.html">
+              <i class="ph-bold ph-shopping-cart"></i>My orders
+              <span class="badge" id="cartBadge">0</span>
+            </a>
+            <a class="nav-link active" href="history.html">
+              <i class="ph-bold ph-clock-counter-clockwise"></i>History
+            </a>
+            <a class="nav-link" href="partners.html">
+              <i class="ph-bold ph-users"></i>Partners
+            </a>
+            <a class="nav-link" href="settings.html">
+              <i class="ph-bold ph-gear-six"></i>Settings
+            </a>
+          </nav>
+        </div>
+        <div class="sidebar-bottom">
+          <a class="nav-link pix-donate-btn" href="#">
+            <i class="ph-bold ph-heart"></i>Buy Me a Coffee
+          </a>
+          <a class="nav-link" href="login.html">
+            <i class="ph-bold ph-sign-out"></i>Log out
+          </a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">History</h1>
+            <p class="page-sub">All your past orders in one place</p>
+          </div>
+          <button class="clear-all" id="clearAllBtn">Clear history</button>
+        </div>
+
+        <!-- Mini stats -->
+        <div class="stats-strip" id="statsStrip"></div>
+
+        <!-- Filters -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="Delivery">Delivery</button>
+          <button class="filter-btn" data-filter="Dine in">Dine in</button>
+          <button class="filter-btn" data-filter="Take away">Take away</button>
+        </div>
+
+        <div id="historyList"></div>
+      </main>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script>
+      let orders = JSON.parse(localStorage.getItem("purr_orders")) || [];
+      let activeFilter = "all";
+      const cart = JSON.parse(localStorage.getItem("purr_cart")) || [];
+      document.getElementById("cartBadge").textContent = cart.reduce(
+        (s, i) => s + i.qty,
+        0,
+      );
+
+      function fmt(v) {
+        return "$" + Number(v).toFixed(2);
+      }
+      function fmtDate(id) {
+        return new Date(Number(id)).toLocaleDateString("en-US", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      function renderStats() {
+        const strip = document.getElementById("statsStrip");
+        if (!orders.length) {
+          strip.innerHTML = "";
+          return;
+        }
+        const total = orders.reduce((s, o) => s + o.total, 0);
+        const items = orders.reduce(
+          (s, o) => s + o.items.reduce((a, i) => a + i.qty, 0),
+          0,
+        );
+        strip.innerHTML = `
+      <div class="stat-mini"><span class="stat-mini-val">${orders.length}</span><span class="stat-mini-lbl">Total orders</span></div>
+      <div class="stat-mini"><span class="stat-mini-val">${items}</span><span class="stat-mini-lbl">Items ordered</span></div>
+      <div class="stat-mini"><span class="stat-mini-val">${fmt(total)}</span><span class="stat-mini-lbl">Total spent</span></div>
+    `;
+      }
+
+      function renderHistory() {
+        const list = document.getElementById("historyList");
+        const filtered = [...orders]
+          .reverse()
+          .filter(
+            (o) => activeFilter === "all" || o.deliveryType === activeFilter,
+          );
+        if (!filtered.length) {
+          list.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="ph-bold ph-clipboard-text"></i></div><h3>No orders found</h3><p>${orders.length ? "Try a different filter." : "Place your first order from the menu."}</p></div>`;
+          return;
+        }
+        list.innerHTML = filtered
+          .map((o, i) => {
+            const tags = o.items
+              .map(
+                (it) =>
+                  `<span class="tag">${it.qty}× ${it.name} (${it.size})</span>`,
+              )
+              .join("");
+            return `
+        <div class="order-card" style="animation-delay:${i * 0.06}s">
+          <div class="order-head">
+            <div>
+              <span class="order-id">#${String(o.id).slice(-6)}</span>
+              <span class="order-date">${fmtDate(o.id)}</span>
+            </div>
+            <span class="status-done">Delivered</span>
+          </div>
+          <div class="tags-row">${tags}</div>
+          <div class="order-foot">
+            <span>${o.deliveryType}</span>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <strong>${fmt(o.total)}</strong>
+              <button class="reorder-btn" onclick="reorder(${o.id})">Reorder</button>
+            </div>
+          </div>
+        </div>`;
+          })
+          .join("");
+      }
+
+      function reorder(id) {
+        const o = orders.find((x) => x.id === id);
+        if (!o) return;
+        let cart = JSON.parse(localStorage.getItem("purr_cart")) || [];
+        o.items.forEach((it) => {
+          const ex = cart.find((c) => c.id === it.id && c.size === it.size);
+          if (ex) ex.qty += it.qty;
+          else cart.push({ ...it });
+        });
+        localStorage.setItem("purr_cart", JSON.stringify(cart));
+        showToast("Items added to cart!");
+      }
+
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeFilter = btn.dataset.filter;
+          renderHistory();
+        });
+      });
+
+      document.getElementById("clearAllBtn").addEventListener("click", () => {
+        if (!orders.length) return;
+        if (!confirm("Clear all history?")) return;
+        orders = [];
+        localStorage.setItem("purr_orders", JSON.stringify(orders));
+        renderStats();
+        renderHistory();
+        showToast("History cleared.");
+      });
+
+      let tt;
+      function showToast(m) {
+        const t = document.getElementById("toast");
+        t.textContent = m;
+        t.classList.add("show");
+        clearTimeout(tt);
+        tt = setTimeout(() => t.classList.remove("show"), 2400);
+      }
+
+      renderStats();
+      renderHistory();
+    </script>
+    <script src="js/pix-support.js"></script>
+  </body>
+</html>

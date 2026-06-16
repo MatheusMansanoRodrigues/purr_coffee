@@ -1,0 +1,581 @@
+/* ===== ORDERS PAGE — extra vars ===== */
+:root {
+  --green: #2e7d4f;
+  --green-light: #d4f0e0;
+}
+
+/* ===== TABS NAV ===== */
+.tabs-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.5s ease 0.1s both;
+}
+
+.tab-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 50px;
+  border: 2px solid var(--cream-dark);
+  background: var(--cream-light);
+  color: var(--brown-mid);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: "Nunito", sans-serif;
+}
+
+.tab-nav svg {
+  width: 16px;
+  height: 16px;
+}
+.tab-nav:hover {
+  border-color: var(--caramel);
+  color: var(--caramel);
+  background: #fff1e0;
+  transform: translateY(-1px);
+}
+.tab-nav.active {
+  background: linear-gradient(135deg, var(--caramel), var(--cappuccino));
+  border-color: transparent;
+  color: var(--cream);
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(200, 120, 58, 0.35);
+  transform: translateY(-1px);
+}
+
+.tab-badge {
+  background: rgba(255, 255, 255, 0.28);
+  padding: 1px 7px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  font-family: "Nunito", sans-serif;
+}
+.tab-nav:not(.active) .tab-badge {
+  background: var(--cream-dark);
+  color: var(--mocha);
+}
+
+/* ===== TAB PANELS ===== */
+.tab-panel {
+  display: none;
+}
+.tab-panel.active {
+  display: block;
+  animation: fadeUp 0.35s ease both;
+}
+
+/* ===== SECTION HEADER ===== */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.section-header h2 {
+  font-size: 19px;
+  font-weight: 900;
+  font-family: "Nunito", sans-serif;
+  color: var(--mocha);
+}
+.section-hint {
+  font-size: 13px;
+  color: var(--brown-muted);
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+
+.clear-btn {
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 2px solid var(--cream-dark);
+  background: transparent;
+  color: var(--brown-mid);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  transition: all 0.2s;
+}
+.clear-btn:hover {
+  border-color: var(--caramel);
+  color: var(--caramel);
+  background: #fff1e0;
+}
+.clear-btn.danger:hover {
+  border-color: #c0392b;
+  color: #c0392b;
+  background: #fdf0ee;
+}
+
+/* ===== ORDER / CART CARDS ===== */
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.order-card {
+  background: var(--cream-light);
+  border: 2px solid var(--cream-mid);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  box-shadow: var(--shadow-card);
+  animation: cardIn 0.4s ease both;
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
+}
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--cream-dark);
+}
+
+/* ── Cart item card ── */
+.cart-item-card {
+  display: grid;
+  grid-template-columns: 56px 1fr auto auto auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.item-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--cream-mid), #ffe8c8);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--cream-dark);
+}
+.item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.thumb-icon {
+  font-size: 26px;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+}
+.item-name {
+  font-size: 14px;
+  font-weight: 800;
+  font-family: "Nunito", sans-serif;
+  color: var(--mocha);
+}
+.item-meta {
+  font-size: 12px;
+  color: var(--brown-muted);
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+
+.item-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ctrl-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--cream-dark);
+  background: var(--cream);
+  font-size: 16px;
+  color: var(--mocha);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+}
+.ctrl-btn:hover {
+  border-color: var(--caramel);
+  background: #fff1e0;
+  color: var(--caramel);
+  transform: scale(1.1);
+}
+.ctrl-qty {
+  font-size: 14px;
+  font-weight: 800;
+  min-width: 16px;
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  color: var(--mocha);
+}
+
+.item-total {
+  font-size: 14px;
+  font-weight: 900;
+  white-space: nowrap;
+  color: var(--caramel);
+  font-family: "Nunito", sans-serif;
+}
+
+.remove-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brown-muted);
+  transition: all 0.15s;
+}
+.remove-btn svg {
+  width: 16px;
+  height: 16px;
+}
+.remove-btn:hover {
+  background: #fdf0ee;
+  color: #c0392b;
+  transform: scale(1.1);
+}
+
+/* ── Cart footer ── */
+.cart-footer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  background: linear-gradient(135deg, var(--cream-light), #fff8f0);
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-card);
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--brown-mid);
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+.summary-row.total {
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--mocha);
+  padding-top: 10px;
+  border-top: 2px dashed var(--cream-dark);
+  margin-top: 4px;
+  font-family: "Nunito", sans-serif;
+}
+
+.checkout-btn {
+  display: inline-block;
+  text-align: center;
+  padding: 15px 32px;
+  border-radius: 50px;
+  margin-top: 18px;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--caramel), var(--cappuccino));
+  color: var(--cream);
+  font-size: 15px;
+  font-weight: 900;
+  text-decoration: none;
+  font-family: "Nunito", sans-serif;
+  transition: all 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(200, 120, 58, 0.4);
+}
+.checkout-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(200, 120, 58, 0.55);
+}
+
+/* ── Order history card ── */
+.order-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.order-id {
+  font-size: 15px;
+  font-weight: 900;
+  display: block;
+  font-family: "Nunito", sans-serif;
+  color: var(--mocha);
+}
+.order-date {
+  font-size: 12px;
+  color: var(--brown-muted);
+  margin-top: 2px;
+  display: block;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+
+.status-badge {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  font-family: "Nunito", sans-serif;
+}
+.active-badge {
+  background: #fff3d6;
+  color: #a0640a;
+}
+.done-badge {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.tag {
+  background: var(--cream-mid);
+  border: 1.5px solid var(--cream-dark);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: var(--brown-mid);
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+}
+
+.order-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 2px dashed var(--cream-dark);
+  font-size: 13px;
+  color: var(--brown-mid);
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+.order-foot strong {
+  font-size: 15px;
+  color: var(--caramel);
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+}
+
+/* ── Stepper (active orders) ── */
+.stepper {
+  display: flex;
+  gap: 0;
+  margin-bottom: 14px;
+  position: relative;
+}
+.stepper::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  right: 9px;
+  height: 2px;
+  background: var(--cream-dark);
+  z-index: 0;
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+  color: var(--brown-muted);
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+}
+.step-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--cream-dark);
+  background: var(--cream-light);
+  transition: all 0.3s;
+}
+.step.done .step-dot {
+  background: linear-gradient(135deg, var(--caramel), var(--cappuccino));
+  border-color: transparent;
+}
+.step.done {
+  color: var(--brown-mid);
+}
+.step.current .step-dot {
+  background: linear-gradient(135deg, var(--caramel), var(--cappuccino));
+  border-color: transparent;
+  box-shadow: 0 0 0 5px rgba(200, 120, 58, 0.18);
+}
+.step.current {
+  color: var(--mocha);
+  font-weight: 800;
+}
+
+/* ===== STATS GRID ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  background: var(--cream-light);
+  border: 2px solid var(--cream-mid);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  animation: cardIn 0.4s ease both;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--cream-dark);
+}
+.stat-icon {
+  font-size: 34px;
+}
+.stat-value {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--caramel);
+  font-family: "Nunito", sans-serif;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--brown-muted);
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 70px 20px;
+  text-align: center;
+}
+.empty-icon {
+  font-size: 52px;
+  opacity: 0.35;
+}
+.empty-state h3 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--mocha);
+  font-family: "Nunito", sans-serif;
+}
+.empty-state p {
+  font-size: 13px;
+  color: var(--brown-muted);
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: linear-gradient(135deg, var(--mocha), var(--brown-hover));
+  color: var(--cream);
+  padding: 14px 22px;
+  border-radius: 18px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 8px 28px rgba(44, 18, 3, 0.45);
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(14px) scale(0.95);
+  transition:
+    opacity 0.28s,
+    transform 0.28s;
+  pointer-events: none;
+  font-family: "Nunito", sans-serif;
+  border: 1.5px solid rgba(200, 120, 58, 0.3);
+}
+.toast::before {
+  content: "☕ ";
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream-mid);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--cream-dark);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brown-muted);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 780px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;
+  }
+  .content {
+    padding: 24px 20px;
+  }
+  .cart-item-card {
+    grid-template-columns: 44px 1fr auto;
+  }
+  .item-total,
+  .remove-btn {
+    display: none;
+  }
+}

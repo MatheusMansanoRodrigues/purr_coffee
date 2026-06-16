@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purr'Coffee — Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/partners.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"
+    />
+    <link rel="stylesheet" href="css/icons.css" />
+    <link rel="stylesheet" href="css/pix-modal.css" />
+  </head>
+  <body>
+    <div class="app-inner">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <img src="imgs/cabeca.png" alt="logo" class="logo-img" />
+            <span class="logo-text">Purr'Coffee</span>
+          </div>
+          <nav class="nav">
+            <a class="nav-link" href="home.html">
+              <i class="ph-bold ph-house"></i>Home page
+            </a>
+            <a class="nav-link" href="index.html">
+              <i class="ph-bold ph-list"></i>Menu
+            </a>
+            <a class="nav-link" href="orders.html">
+              <i class="ph-bold ph-shopping-cart"></i>My orders
+              <span class="badge" id="cartBadge">0</span>
+            </a>
+            <a class="nav-link" href="history.html">
+              <i class="ph-bold ph-clock-counter-clockwise"></i>History
+            </a>
+            <a class="nav-link active" href="partners.html">
+              <i class="ph-bold ph-users"></i>Partners
+            </a>
+            <a class="nav-link" href="settings.html">
+              <i class="ph-bold ph-gear-six"></i>Settings
+            </a>
+          </nav>
+        </div>
+        <div class="sidebar-bottom">
+          <a class="nav-link pix-donate-btn" href="#">
+            <i class="ph-bold ph-heart"></i>Buy Me a Coffee
+          </a>
+          <a class="nav-link" href="login.html">
+            <i class="ph-bold ph-sign-out"></i>Log out
+          </a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Partners</h1>
+            <p class="page-sub">
+              Brands and suppliers who make Purr'Coffee possible
+            </p>
+          </div>
+        </div>
+
+        <div class="partners-grid">
+          <div class="partner-card" style="animation-delay: 0.05s">
+            <div class="partner-icon"><i class="ph-bold ph-plant"></i></div>
+            <span class="partner-name">BeanFarm Co.</span>
+            <span class="partner-tag">Coffee supplier</span>
+            <p class="partner-desc">
+              Specialty-grade arabica beans sourced directly from sustainable
+              farms in Brazil and Ethiopia.
+            </p>
+            <button
+              class="partner-link"
+              onclick="showToast('Visit BeanFarm Co. coming soon!')"
+            >
+              Learn more
+            </button>
+          </div>
+          <div class="partner-card" style="animation-delay: 0.1s">
+            <div class="partner-icon"><i class="ph-bold ph-drop"></i></div>
+            <span class="partner-name">MilkPath</span>
+            <span class="partner-tag">Dairy partner</span>
+            <p class="partner-desc">
+              Local organic milk and plant-based alternatives. Delivered fresh
+              every morning.
+            </p>
+            <button
+              class="partner-link"
+              onclick="showToast('Visit MilkPath coming soon!')"
+            >
+              Learn more
+            </button>
+          </div>
+          <div class="partner-card" style="animation-delay: 0.15s">
+            <div class="partner-icon"><i class="ph-bold ph-bread"></i></div>
+            <span class="partner-name">Forno Artesanal</span>
+            <span class="partner-tag">Bakery</span>
+            <p class="partner-desc">
+              Handcrafted breads, croissants and pastries baked daily with no
+              preservatives.
+            </p>
+            <button
+              class="partner-link"
+              onclick="showToast('Visit Forno Artesanal coming soon!')"
+            >
+              Learn more
+            </button>
+          </div>
+          <div class="partner-card" style="animation-delay: 0.2s">
+            <div class="partner-icon"><i class="ph-bold ph-truck"></i></div>
+            <span class="partner-name">SwiftDeliver</span>
+            <span class="partner-tag">Logistics</span>
+            <p class="partner-desc">
+              Fast and eco-friendly last-mile delivery, keeping your order warm
+              all the way.
+            </p>
+            <button
+              class="partner-link"
+              onclick="showToast('Visit SwiftDeliver coming soon!')"
+            >
+              Learn more
+            </button>
+          </div>
+          <div class="partner-card" style="animation-delay: 0.25s">
+            <div class="partner-icon"><i class="ph-bold ph-recycle"></i></div>
+            <span class="partner-name">GreenPack</span>
+            <span class="partner-tag">Packaging</span>
+            <p class="partner-desc">
+              100% compostable cups, lids and bags. Because good coffee
+              shouldn't cost the planet.
+            </p>
+            <button
+              class="partner-link"
+              onclick="showToast('Visit GreenPack coming soon!')"
+            >
+              Learn more
+            </button>
+          </div>
+          <div class="partner-card" style="animation-delay: 0.3s">
+            <div class="partner-icon"><i class="ph-bold ph-paw-print"></i></div>
+            <span class="partner-name">Patinhas Shelter</span>
+            <span class="partner-tag">Social cause</span>
+            <p class="partner-desc">
+              Every order helps fund food and care for rescued cats waiting for
+              their forever home.
+            </p>
+            <a href="donate.html" class="partner-link">Donate now</a>
+          </div>
+        </div>
+
+        <div class="become-card">
+          <div>
+            <h2>Become a partner</h2>
+            <p>
+              Want to supply, collaborate or support Purr'Coffee? Let's talk.
+            </p>
+          </div>
+          <button
+            class="become-btn"
+            onclick="showToast('Partnership form coming soon!')"
+          >
+            Get in touch
+          </button>
+        </div>
+      </main>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script>
+      const cart = JSON.parse(localStorage.getItem("purr_cart")) || [];
+      document.getElementById("cartBadge").textContent = cart.reduce(
+        (s, i) => s + i.qty,
+        0,
+      );
+      let tt;
+      function showToast(m) {
+        const t = document.getElementById("toast");
+        t.textContent = m;
+        t.classList.add("show");
+        clearTimeout(tt);
+        tt = setTimeout(() => t.classList.remove("show"), 2400);
+      }
+    </script>
+    <script src="js/pix-support.js"></script>
+  </body>
+</html>

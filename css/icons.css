@@ -1,0 +1,52 @@
+/* ===== PHOSPHOR ICONS — tamanho e cor na paleta ===== */
+
+/* Ícones da sidebar */
+.nav-link i {
+  font-size: 18px;
+  flex-shrink: 0;
+  color: currentColor;
+  line-height: 1;
+}
+
+/* Ícones da topbar (filter, search) */
+.filter-btn i,
+.back-btn i {
+  font-size: 17px;
+  line-height: 1;
+}
+
+/* Ícones dentro de botões de entrega */
+.delivery-btn i {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Ícones de tabs nav (orders) */
+.tab-nav i {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Ícones em settings */
+.s-nav-btn i {
+  font-size: 17px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Ícones nos inputs do login */
+.icon-left i {
+  font-size: 16px;
+  color: var(--brown-muted);
+}
+
+/* Ícone de toggle senha */
+.toggle-pw i {
+  font-size: 17px;
+}
+
+/* Garante que qualquer ícone Phosphor herde a cor do pai */
+[class^="ph-"],
+[class*=" ph-"] {
+  color: inherit;
+}

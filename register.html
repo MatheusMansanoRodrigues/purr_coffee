@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purr'Coffee — Cadastro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/register.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"
+    />
+    <link rel="stylesheet" href="css/icons.css" />
+  </head>
+  <body>
+    <div class="login-card">
+      <!-- POSTER -->
+      <div class="poster" id="poster">
+        <img class="poster-img" src="imgs/corpo.png" alt="Purr'Coffee mascot" />
+        <div class="poster-content">
+          <div class="poster-logo">
+            <img src="imgs/cabeca.png" alt="logo" />
+            <span>Purr'Coffee</span>
+          </div>
+          <p class="poster-tagline">Join the<br />coffee family.</p>
+          <p class="poster-sub">
+            Create your account and start<br />ordering your favorite drinks.
+            <i
+              class="ph-bold ph-coffee"
+              style="margin-left: 4px; vertical-align: middle"
+            ></i>
+          </p>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="form-side">
+        <h1 class="form-title">Create account</h1>
+        <p class="form-subtitle">Fill in the details below to get started</p>
+
+        <form id="registerForm" onsubmit="handleRegister(event)">
+          <!-- Nome + Sobrenome -->
+          <div class="row-2">
+            <div class="form-group" style="--delay: 0.55s">
+              <label for="firstName">First name</label>
+              <div class="input-wrap">
+                <span class="icon-left"><i class="ph-bold ph-user"></i></span>
+                <input type="text" id="firstName" placeholder="Ana" required />
+              </div>
+            </div>
+
+            <div class="form-group" style="--delay: 0.6s">
+              <label for="lastName">Last name</label>
+              <div class="input-wrap">
+                <span class="icon-left"><i class="ph-bold ph-user"></i></span>
+                <input type="text" id="lastName" placeholder="Silva" required />
+              </div>
+            </div>
+          </div>
+
+          <!-- E-mail -->
+          <div class="form-group" style="--delay: 0.65s">
+            <label for="email">E-mail</label>
+            <div class="input-wrap">
+              <span class="icon-left"><i class="ph-bold ph-envelope"></i></span>
+              <input
+                type="email"
+                id="email"
+                placeholder="seu@email.com"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Telefone -->
+          <div class="form-group" style="--delay: 0.7s">
+            <label for="phone"
+              >Phone
+              <span style="font-weight: 400; color: var(--brown-muted)"
+                >(optional)</span
+              ></label
+            >
+            <div class="input-wrap">
+              <span class="icon-left"><i class="ph-bold ph-phone"></i></span>
+              <input type="tel" id="phone" placeholder="+55 (11) 99999-0000" />
+            </div>
+          </div>
+
+          <!-- Senha -->
+          <div class="form-group" style="--delay: 0.75s">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <span class="icon-left"><i class="ph-bold ph-lock"></i></span>
+              <input
+                type="password"
+                id="password"
+                placeholder="Mínimo 8 caracteres"
+                required
+                oninput="checkStrength(this.value)"
+              />
+              <button
+                type="button"
+                class="toggle-pw"
+                id="togglePw"
+                aria-label="Mostrar senha"
+              >
+                <i class="ph-bold ph-eye" id="eyeOpen"></i>
+                <i
+                  class="ph-bold ph-eye-slash"
+                  id="eyeClosed"
+                  style="display: none"
+                ></i>
+              </button>
+            </div>
+            <!-- Barra de força da senha -->
+            <div class="strength-bar">
+              <div class="strength-fill" id="strengthFill"></div>
+            </div>
+            <span class="strength-label" id="strengthLabel"></span>
+          </div>
+
+          <!-- Confirmar senha -->
+          <div class="form-group" style="--delay: 0.8s">
+            <label for="confirmPassword">Confirm password</label>
+            <div class="input-wrap">
+              <span class="icon-left"><i class="ph-bold ph-shield"></i></span>
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Repita a senha"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-pw"
+                id="toggleConfirm"
+                aria-label="Mostrar confirmação"
+              >
+                <i class="ph-bold ph-eye" id="eyeOpen2"></i>
+                <i
+                  class="ph-bold ph-eye-slash"
+                  id="eyeClosed2"
+                  style="display: none"
+                ></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Termos -->
+          <div class="terms-row">
+            <input type="checkbox" id="terms" required />
+            <label for="terms" style="font-weight: 400; cursor: pointer">
+              I agree to the
+              <a onclick="showToast('Terms coming soon!')">Terms of Service</a>
+              and
+              <a onclick="showToast('Privacy policy coming soon!')"
+                >Privacy Policy</a
+              >
+            </label>
+          </div>
+
+          <button type="submit" class="btn-register">Create account</button>
+        </form>
+
+        <p class="signup-row" style="animation: fadeUp 0.5s ease 1.2s both">
+          Already have an account? <a href="login.html">Sign in</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ── Toggle senha ──
+      function setupToggle(btnId, inputId, openId, closedId) {
+        document.getElementById(btnId).addEventListener("click", () => {
+          const input = document.getElementById(inputId);
+          const isHidden = input.type === "password";
+          input.type = isHidden ? "text" : "password";
+          document.getElementById(openId).style.display = isHidden
+            ? "none"
+            : "block";
+          document.getElementById(closedId).style.display = isHidden
+            ? "block"
+            : "none";
+        });
+      }
+      setupToggle("togglePw", "password", "eyeOpen", "eyeClosed");
+      setupToggle("toggleConfirm", "confirmPassword", "eyeOpen2", "eyeClosed2");
+
+      // ── Força da senha ──
+      function checkStrength(val) {
+        const fill = document.getElementById("strengthFill");
+        const label = document.getElementById("strengthLabel");
+        let score = 0;
+        if (val.length >= 8) score++;
+        if (/[A-Z]/.test(val)) score++;
+        if (/[0-9]/.test(val)) score++;
+        if (/[^A-Za-z0-9]/.test(val)) score++;
+
+        const levels = [
+          { w: "0%", color: "transparent", text: "" },
+          { w: "33%", color: "#c0392b", text: "Weak" },
+          { w: "66%", color: "#e67e22", text: "Medium" },
+          { w: "85%", color: "#27ae60", text: "Strong" },
+          { w: "100%", color: "#1e8449", text: "Very strong" },
+        ];
+        const l = levels[score] || levels[0];
+        fill.style.width = l.w;
+        fill.style.background = l.color;
+        label.textContent = l.text;
+        label.style.color = l.color;
+      }
+
+      // ── Shake em campo inválido ──
+      function shakeInput(el) {
+        el.classList.remove("shake");
+        void el.offsetWidth;
+        el.classList.add("shake");
+        el.addEventListener(
+          "animationend",
+          () => el.classList.remove("shake"),
+          { once: true },
+        );
+      }
+
+      // ── Cadastro ──
+      function handleRegister(e) {
+        e.preventDefault();
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const pw = document.getElementById("password").value;
+        const pwConf = document.getElementById("confirmPassword").value;
+        const terms = document.getElementById("terms").checked;
+
+        if (!firstName || !lastName || !email || !pw || !pwConf) {
+          [
+            "firstName",
+            "lastName",
+            "email",
+            "password",
+            "confirmPassword",
+          ].forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el.value.trim()) shakeInput(el);
+          });
+          showToast("Please fill in all required fields.");
+          return;
+        }
+
+        if (pw.length < 8) {
+          shakeInput(document.getElementById("password"));
+          showToast("Password must be at least 8 characters.");
+          return;
+        }
+
+        if (pw !== pwConf) {
+          shakeInput(document.getElementById("confirmPassword"));
+          showToast("Passwords do not match.");
+          return;
+        }
+
+        if (!terms) {
+          showToast("Please accept the Terms of Service.");
+          return;
+        }
+
+        showToast("Account created! Redirecting…");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1400);
+      }
+
+      // ── Toast ──
+      let toastTimer;
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+      }
+
+      // ── Bolhas de café no poster ──
+      (function spawnBubbles() {
+        const poster = document.getElementById("poster");
+        const config = [
+          { size: 10, left: 18, dur: 4.5, delay: 0.3 },
+          { size: 7, left: 35, dur: 3.8, delay: 1.1 },
+          { size: 12, left: 55, dur: 5.2, delay: 0.0 },
+          { size: 6, left: 70, dur: 4.0, delay: 1.8 },
+          { size: 9, left: 82, dur: 3.5, delay: 0.7 },
+          { size: 5, left: 28, dur: 4.8, delay: 2.4 },
+          { size: 11, left: 62, dur: 5.0, delay: 1.5 },
+        ];
+        config.forEach(({ size, left, dur, delay }) => {
+          const b = document.createElement("div");
+          b.className = "bubble";
+          b.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${left}%; bottom:${Math.random() * 20 + 5}%;
+        --dur:${dur}s; --delay:${delay}s;
+      `;
+          poster.appendChild(b);
+        });
+      })();
+    </script>
+  </body>
+</html>

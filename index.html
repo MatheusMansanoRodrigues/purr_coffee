@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purr'Coffee</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"
+    />
+    <link rel="stylesheet" href="css/icons.css" />
+    <link rel="stylesheet" href="css/pix-modal.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <img src="imgs/cabeca.png" alt="Purr'Coffee" class="logo-img" />
+            <span class="logo-text">Purr'Coffee</span>
+          </div>
+
+          <nav class="nav">
+            <a class="nav-link" data-page="home" href="home.html">
+              <i class="ph-bold ph-house"></i>
+              Home page
+            </a>
+            <a class="nav-link active" data-page="menu">
+              <i class="ph-bold ph-list"></i>
+              Menu
+            </a>
+            <a class="nav-link" data-page="orders" href="orders.html">
+              <i class="ph-bold ph-shopping-cart"></i>
+              My orders
+              <span class="badge" id="cartBadge">0</span>
+            </a>
+            <a class="nav-link" data-page="history" href="history.html">
+              <i class="ph-bold ph-clock-counter-clockwise"></i>
+              History
+            </a>
+            <a class="nav-link" data-page="partners" href="partners.html">
+              <i class="ph-bold ph-users"></i>
+              Partners
+            </a>
+            <a class="nav-link" data-page="settings" href="settings.html">
+              <i class="ph-bold ph-gear-six"></i>
+              Settings
+            </a>
+          </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+          <a class="nav-link pix-donate-btn" href="#">
+            <i class="ph-bold ph-heart"></i>
+            Buy Me a Coffee
+          </a>
+          <a class="nav-link" id="logoutBtn">
+            <i class="ph-bold ph-sign-out"></i>
+            Log out
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="content">
+        <header class="topbar">
+          <div class="search-wrap">
+            <i class="ph-bold ph-magnifying-glass search-icon"></i>
+            <input type="text" id="search" placeholder="Search" />
+          </div>
+          <button class="filter-btn">
+            <i class="ph-bold ph-sliders"></i>
+            Filter
+          </button>
+        </header>
+
+        <h1 class="page-title">Coffee menu</h1>
+
+        <div class="tabs" id="tabs">
+          <button class="tab active" data-category="coffee">Coffee</button>
+          <button class="tab" data-category="noncoffee">Non Coffee</button>
+          <button class="tab" data-category="food">Food</button>
+          <button class="tab" data-category="snack">Snack</button>
+          <button class="tab" data-category="dessert">Dessert</button>
+        </div>
+
+        <div class="products" id="products"></div>
+      </main>
+
+      <!-- CART SIDEBAR -->
+      <aside class="cart-sidebar">
+        <h2 class="cart-title">Cart summary</h2>
+
+        <div class="delivery-options">
+          <button class="delivery-btn active" data-type="Delivery">
+            <i class="ph-bold ph-truck"></i>
+            <span>Delivery</span>
+          </button>
+          <button class="delivery-btn" data-type="Dine in">
+            <i class="ph-bold ph-fork-knife"></i>
+            <span>Dine in</span>
+          </button>
+          <button class="delivery-btn" data-type="Take away">
+            <i class="ph-bold ph-bag"></i>
+            <span>Take away</span>
+          </button>
+        </div>
+
+        <div class="cart-items" id="cartItems">
+          <p class="empty-cart">Your cart is empty.</p>
+        </div>
+
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Price</span>
+            <span id="priceEl">$0.00</span>
+          </div>
+          <div class="summary-row discount-row">
+            <span>Discount applied</span>
+            <span id="discountEl">-$0.00</span>
+          </div>
+          <div class="summary-row total-row">
+            <span>Grand total</span>
+            <span id="totalEl">$0.00</span>
+          </div>
+        </div>
+
+        <button class="place-order-btn" id="placeOrderBtn">
+          Place an order
+        </button>
+      </aside>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+    <script src="js/pix-support.js"></script>
+  </body>
+</html>

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purr'Coffee — Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/home.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"
+    />
+    <link rel="stylesheet" href="css/icons.css" />
+    <link rel="stylesheet" href="css/pix-modal.css" />
+  </head>
+  <body>
+    <div class="app-inner">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <img src="imgs/cabeca.png" alt="logo" class="logo-img" />
+            <span class="logo-text">Purr'Coffee</span>
+          </div>
+          <nav class="nav">
+            <a class="nav-link active" href="home.html">
+              <i class="ph-bold ph-house"></i>
+              Home page
+            </a>
+            <a class="nav-link" href="index.html">
+              <i class="ph-bold ph-list"></i>
+              Menu
+            </a>
+            <a class="nav-link" href="orders.html">
+              <i class="ph-bold ph-shopping-cart"></i>
+              My orders
+              <span class="badge" id="cartBadge">0</span>
+            </a>
+            <a class="nav-link" href="history.html">
+              <i class="ph-bold ph-clock-counter-clockwise"></i>
+              History
+            </a>
+            <a class="nav-link" href="partners.html">
+              <i class="ph-bold ph-users"></i>
+              Partners
+            </a>
+            <a class="nav-link" href="settings.html">
+              <i class="ph-bold ph-gear-six"></i>
+              Settings
+            </a>
+          </nav>
+        </div>
+        <div class="sidebar-bottom">
+          <a class="nav-link pix-donate-btn" href="#">
+            <i class="ph-bold ph-heart"></i>
+            Buy Me a Coffee
+          </a>
+          <a class="nav-link" href="login.html">
+            <i class="ph-bold ph-sign-out"></i>
+            Log out
+          </a>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <main class="content">
+        <!-- Hero -->
+        <div class="hero">
+          <div>
+            <h1 class="hero-title">
+              Good morning,<br />coffee lover <i class="ph-bold ph-coffee"></i>
+            </h1>
+            <p class="hero-sub">
+              What are you having today? Explore our fresh menu and place your
+              order.
+            </p>
+            <a href="index.html" class="hero-btn">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="8" y1="6" x2="21" y2="6" />
+                <line x1="8" y1="12" x2="21" y2="12" />
+                <line x1="8" y1="18" x2="21" y2="18" />
+              </svg>
+              Browse menu
+            </a>
+          </div>
+          <img src="imgs/corpo.png" alt="mascot" class="hero-img" />
+        </div>
+
+        <!-- Quick actions -->
+        <p class="section-title">Quick access</p>
+        <div class="quick-grid">
+          <a href="index.html" class="quick-card" style="animation-delay: 0.1s">
+            <span class="quick-icon"><i class="ph-bold ph-coffee"></i></span>
+            <span class="quick-label">Menu</span>
+          </a>
+          <a
+            href="orders.html"
+            class="quick-card"
+            style="animation-delay: 0.15s"
+          >
+            <span class="quick-icon"
+              ><i class="ph-bold ph-shopping-cart"></i
+            ></span>
+            <span class="quick-label">My cart</span>
+          </a>
+          <a
+            href="history.html"
+            class="quick-card"
+            style="animation-delay: 0.2s"
+          >
+            <span class="quick-icon"
+              ><i class="ph-bold ph-clock-counter-clockwise"></i
+            ></span>
+            <span class="quick-label">History</span>
+          </a>
+          <a
+            href="partners.html"
+            class="quick-card"
+            style="animation-delay: 0.25s"
+          >
+            <span class="quick-icon"><i class="ph-bold ph-users"></i></span>
+            <span class="quick-label">Partners</span>
+          </a>
+        </div>
+
+        <!-- Featured -->
+        <p class="section-title">Today's highlights</p>
+        <div class="highlight-grid">
+          <div class="highlight-card" style="animation-delay: 0.1s">
+            <div class="highlight-img"><i class="ph-bold ph-coffee"></i></div>
+            <div class="highlight-body">
+              <div class="highlight-name">Cappuccino</div>
+              <div class="highlight-price">$1.50 · Small or Large</div>
+            </div>
+            <a href="index.html" class="highlight-btn">Order now</a>
+          </div>
+          <div class="highlight-card" style="animation-delay: 0.17s">
+            <div class="highlight-img"><i class="ph-bold ph-mug"></i></div>
+            <div class="highlight-body">
+              <div class="highlight-name">Matcha Latte</div>
+              <div class="highlight-price">$2.20 · Small or Large</div>
+            </div>
+            <a href="index.html" class="highlight-btn">Order now</a>
+          </div>
+          <div class="highlight-card" style="animation-delay: 0.24s">
+            <div class="highlight-img"><i class="ph-bold ph-cookie"></i></div>
+            <div class="highlight-body">
+              <div class="highlight-name">Cookie</div>
+              <div class="highlight-price">$1.10 · Classic</div>
+            </div>
+            <a href="index.html" class="highlight-btn">Order now</a>
+          </div>
+        </div>
+
+        <!-- Promo -->
+        <div class="promo">
+          <div>
+            <p>Use code <strong>PURR10</strong> and get 10% off</p>
+            <span>Valid on any order today only</span>
+          </div>
+          <button class="promo-code" onclick="copyCode()">Copy code</button>
+        </div>
+      </main>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script>
+      const cart = JSON.parse(localStorage.getItem("purr_cart")) || [];
+      document.getElementById("cartBadge").textContent = cart.reduce(
+        (s, i) => s + i.qty,
+        0,
+      );
+
+      function copyCode() {
+        navigator.clipboard.writeText("PURR10").catch(() => {});
+        showToast("Code PURR10 copied!");
+      }
+      let tt;
+      function showToast(m) {
+        const t = document.getElementById("toast");
+        t.textContent = m;
+        t.classList.add("show");
+        clearTimeout(tt);
+        tt = setTimeout(() => t.classList.remove("show"), 2400);
+      }
+    </script>
+    <script src="js/pix-support.js"></script>
+  </body>
+</html>

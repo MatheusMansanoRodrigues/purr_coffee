@@ -1,0 +1,160 @@
+/* ===== PARTNERS PAGE — aconchegante ===== */
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.partner-card {
+  background: var(--cream-light);
+  border: 2px solid var(--cream-mid);
+  border-radius: var(--radius);
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  animation: cardIn 0.4s ease both;
+  transition:
+    transform 0.22s,
+    box-shadow 0.22s,
+    border-color 0.2s;
+}
+.partner-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--cream-dark);
+}
+
+.partner-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--cream-mid), #ffe8c8);
+  border: 2px solid var(--cream-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+.partner-card:hover .partner-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+.partner-icon i {
+  font-size: 28px;
+  color: var(--caramel);
+}
+
+.partner-name {
+  font-size: 15px;
+  font-weight: 900;
+  font-family: "Nunito", sans-serif;
+  color: var(--mocha);
+}
+.partner-desc {
+  font-size: 12.5px;
+  color: var(--brown-muted);
+  line-height: 1.55;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+.partner-tag {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--cream-mid);
+  border: 1.5px solid var(--cream-dark);
+  color: var(--brown-mid);
+  font-family: "Nunito", sans-serif;
+}
+
+.partner-link {
+  margin-top: 4px;
+  padding: 10px 22px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--caramel), var(--cappuccino));
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
+  border: none;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  box-shadow: 0 3px 10px rgba(200, 120, 58, 0.3);
+}
+.partner-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(200, 120, 58, 0.45);
+}
+
+.become-card {
+  background: linear-gradient(
+    135deg,
+    var(--mocha) 0%,
+    var(--cappuccino) 60%,
+    var(--caramel) 100%
+  );
+  border-radius: var(--radius);
+  padding: 34px 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  animation: fadeUp 0.5s ease 0.3s both;
+  box-shadow: 0 12px 40px rgba(92, 46, 14, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+.become-card::before {
+  content: "🐾";
+  position: absolute;
+  right: 160px;
+  top: -10px;
+  font-size: 80px;
+  opacity: 0.07;
+  transform: rotate(15deg);
+  pointer-events: none;
+}
+
+.become-card h2 {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--cream);
+  margin-bottom: 8px;
+  font-family: "Nunito", sans-serif;
+  letter-spacing: -0.3px;
+}
+.become-card p {
+  font-size: 13.5px;
+  color: rgba(255, 245, 228, 0.78);
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+
+.become-btn {
+  padding: 14px 30px;
+  border-radius: 50px;
+  background: var(--cream);
+  color: var(--mocha);
+  font-size: 14px;
+  font-weight: 900;
+  border: none;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  white-space: nowrap;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+.become-btn:hover {
+  background: #fff1e0;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+}

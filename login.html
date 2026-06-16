@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purr'Coffee — Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/login.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"
+    />
+    <link rel="stylesheet" href="css/icons.css" />
+  </head>
+  <body>
+    <div class="login-card">
+      <!-- POSTER -->
+      <div class="poster" id="poster">
+        <img class="poster-img" src="imgs/corpo.png" alt="Purr'Coffee mascot" />
+        <div class="poster-content">
+          <div class="poster-logo">
+            <img src="imgs/cabeca.png" alt="logo" />
+            <span>Purr'Coffee</span>
+          </div>
+          <p class="poster-tagline">
+            Your cozy corner<br />for the perfect cup.
+          </p>
+          <p class="poster-sub">
+            Order, relax and let the coffee<br />do the talking.
+          </p>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="form-side">
+        <h1 class="form-title">Welcome back</h1>
+        <p class="form-subtitle">Sign in to your Purr'Coffee account</p>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <!-- E-mail -->
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <div class="input-wrap">
+              <span class="icon-left"><i class="ph-bold ph-envelope"></i></span>
+              <input
+                type="email"
+                id="email"
+                placeholder="seu@email.com"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Senha -->
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <span class="icon-left"><i class="ph-bold ph-lock"></i></span>
+              <input
+                type="password"
+                id="password"
+                placeholder="••••••••"
+                required
+              />
+              <!-- toggle ver/ocultar senha -->
+              <button
+                type="button"
+                class="toggle-pw"
+                id="togglePw"
+                aria-label="Mostrar senha"
+              >
+                <i class="ph-bold ph-eye" id="eyeOpen"></i>
+                <i
+                  class="ph-bold ph-eye-slash"
+                  id="eyeClosed"
+                  style="display: none"
+                ></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="forgot">
+            <a onclick="showToast('Password reset coming soon!')"
+              >Forgot password?</a
+            >
+          </div>
+
+          <button type="submit" class="btn-login">Sign in</button>
+        </form>
+
+        <div class="divider">or</div>
+
+        <!-- Google -->
+        <button class="btn-google" onclick="loginWithGoogle()">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="#EA4335"
+              d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+            />
+            <path
+              fill="#4285F4"
+              d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+            />
+            <path
+              fill="#34A853"
+              d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+            />
+            <path fill="none" d="M0 0h48v48H0z" />
+          </svg>
+          Continue with Google
+        </button>
+
+        <!-- Guest -->
+        <button class="btn-guest" onclick="enterAsGuest()">
+          Continue as guest
+        </button>
+
+        <p class="signup-row">
+          Don't have an account? <a href="register.html">Sign up</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ── Toggle senha ──
+      const togglePw = document.getElementById("togglePw");
+      const pwInput = document.getElementById("password");
+      const eyeOpen = document.getElementById("eyeOpen");
+      const eyeClosed = document.getElementById("eyeClosed");
+
+      togglePw.addEventListener("click", () => {
+        const isHidden = pwInput.type === "password";
+        pwInput.type = isHidden ? "text" : "password";
+        eyeOpen.style.display = isHidden ? "none" : "block";
+        eyeClosed.style.display = isHidden ? "block" : "none";
+      });
+
+      // ── Login ──
+      function handleLogin(e) {
+        e.preventDefault();
+        const emailEl = document.getElementById("email");
+        const passEl = document.getElementById("password");
+        if (!emailEl.value.trim() || !passEl.value) {
+          // shake nos campos vazios
+          [emailEl, passEl].forEach((el) => {
+            if (!el.value.trim()) {
+              el.classList.remove("shake");
+              void el.offsetWidth; // reflow para reiniciar animação
+              el.classList.add("shake");
+              el.addEventListener(
+                "animationend",
+                () => el.classList.remove("shake"),
+                { once: true },
+              );
+            }
+          });
+          showToast("Please fill in all fields.");
+          return;
+        }
+        showToast("Logging in…");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1200);
+      }
+
+      // ── Google ──
+      function loginWithGoogle() {
+        showToast("Google login coming soon!");
+      }
+
+      // ── Guest ──
+      function enterAsGuest() {
+        showToast("Entering as guest…");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1000);
+      }
+
+      // ── Toast ──
+      let toastTimer;
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
+      }
+
+      // ── Bolhas de café no poster ──
+      (function spawnBubbles() {
+        const poster = document.getElementById("poster");
+        const config = [
+          { size: 10, left: 18, dur: 4.5, delay: 0.3 },
+          { size: 7, left: 35, dur: 3.8, delay: 1.1 },
+          { size: 12, left: 55, dur: 5.2, delay: 0.0 },
+          { size: 6, left: 70, dur: 4.0, delay: 1.8 },
+          { size: 9, left: 82, dur: 3.5, delay: 0.7 },
+          { size: 5, left: 28, dur: 4.8, delay: 2.4 },
+          { size: 11, left: 62, dur: 5.0, delay: 1.5 },
+        ];
+        config.forEach(({ size, left, dur, delay }) => {
+          const b = document.createElement("div");
+          b.className = "bubble";
+          b.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${left}%; bottom:${Math.random() * 20 + 5}%;
+        --dur:${dur}s; --delay:${delay}s;
+      `;
+          poster.appendChild(b);
+        });
+      })();
+    </script>
+  </body>
+</html>
