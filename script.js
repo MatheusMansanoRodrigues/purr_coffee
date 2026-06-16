@@ -195,7 +195,7 @@ const products = [
 let currentCategory = "coffee";
 let cart = JSON.parse(localStorage.getItem("purr_cart")) || [];
 let orders = JSON.parse(localStorage.getItem("purr_orders")) || [];
-let deliveryType = "Delivery";
+let deliveryType = "delivery";
 let discount = 0;
 
 // ===== ELEMENTS =====
@@ -210,7 +210,7 @@ const toastEl = document.getElementById("toast");
 
 // ===== FORMAT CURRENCY =====
 function fmt(value) {
-  return "$" + value.toFixed(2);
+  return PurrSettings.fmt(value);
 }
 
 // ===== SAVE =====
@@ -234,9 +234,13 @@ function renderProducts() {
   );
 
   if (filtered.length === 0) {
-    productsEl.innerHTML = `<p style="color: var(--text-muted); font-size:14px; grid-column:1/-1;">No products found.</p>`;
+    productsEl.innerHTML = `<p style="color: var(--text-muted); font-size:14px; grid-column:1/-1;">${PurrSettings.t("menu.noProducts")}</p>`;
     return;
   }
+
+  const defaultSize = PurrSettings.normalizeSize(
+    PurrSettings.getSettings().defaultSize,
+  );
 
   productsEl.innerHTML = filtered
     .map(
@@ -257,10 +261,10 @@ function renderProducts() {
         </div>
         <p class="card-desc">${p.desc}</p>
 
-        <div class="size-label">Size</div>
+        <div class="size-label">${PurrSettings.t("menu.size")}</div>
         <div class="sizes">
-          <button class="size-btn active" onclick="selectSize(this)">Small</button>
-          <button class="size-btn" onclick="selectSize(this)">Large</button>
+          <button class="size-btn ${defaultSize === "small" ? "active" : ""}" data-size="small" onclick="selectSize(this)">${PurrSettings.t("size.small")}</button>
+          <button class="size-btn ${defaultSize === "large" ? "active" : ""}" data-size="large" onclick="selectSize(this)">${PurrSettings.t("size.large")}</button>
         </div>
 
         <div class="card-actions">
@@ -269,7 +273,7 @@ function renderProducts() {
             <span class="qty-display">1</span>
             <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
           </div>
-          <button class="add-btn" onclick="addToCart(${p.id}, this)">Add to Cart</button>
+          <button class="add-btn" onclick="addToCart(${p.id}, this)">${PurrSettings.t("menu.addToCart")}</button>
         </div>
       </div>
     </div>
@@ -292,8 +296,8 @@ function selectSize(btn) {
   const product = products.find((p) => p.id === productId);
   if (!product) return;
 
-  const size = btn.textContent.trim();
-  const priceAdj = size === "Large" ? product.price * 0.2 : 0;
+  const size = btn.dataset.size || PurrSettings.normalizeSize(btn.textContent);
+  const priceAdj = size === "large" ? product.price * 0.2 : 0;
   const finalPrice = product.price + priceAdj;
   card.querySelector(".card-price").textContent = fmt(finalPrice);
 }
@@ -312,8 +316,10 @@ function addToCart(id, btn) {
   const card = btn.closest(".card");
   const qty = parseInt(card.querySelector(".qty-display").textContent);
   const sizeBtn = card.querySelector(".size-btn.active");
-  const size = sizeBtn ? sizeBtn.textContent : "Small";
-  const priceAdj = size === "Large" ? product.price * 0.2 : 0;
+  const size = sizeBtn
+    ? sizeBtn.dataset.size || PurrSettings.normalizeSize(sizeBtn.textContent)
+    : PurrSettings.normalizeSize(PurrSettings.getSettings().defaultSize);
+  const priceAdj = size === "large" ? product.price * 0.2 : 0;
   const finalPrice = product.price + priceAdj;
 
   const existing = cart.find((item) => item.id === id && item.size === size);
@@ -333,13 +339,13 @@ function addToCart(id, btn) {
 
   saveCart();
   renderCart();
-  showToast(`${product.name} added to cart`);
+  showToast(PurrSettings.t("toast.addedToCart", { name: product.name }));
 }
 
 // ===== RENDER CART =====
 function renderCart() {
   if (cart.length === 0) {
-    cartItemsEl.innerHTML = `<div class="empty-cart"><i class="ph-bold ph-shopping-cart-simple"></i><span>Your cart is empty.</span></div>`;
+    cartItemsEl.innerHTML = `<div class="empty-cart"><i class="ph-bold ph-shopping-cart-simple"></i><span>${PurrSettings.t("menu.emptyCart")}</span></div>`;
   } else {
     cartItemsEl.innerHTML = cart
       .map(
@@ -366,7 +372,8 @@ function renderCart() {
   }
 
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  const deliveryFee = deliveryType === "Delivery" && cart.length > 0 ? 2.0 : 0;
+  const deliveryFee =
+    deliveryType === "delivery" && cart.length > 0 ? 2.0 : 0;
   const grand = subtotal + deliveryFee - discount;
 
   priceEl.textContent = fmt(subtotal);
@@ -417,7 +424,7 @@ document.querySelectorAll(".delivery-btn").forEach((btn) => {
       .querySelectorAll(".delivery-btn")
       .forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
-    deliveryType = btn.dataset.type;
+    deliveryType = PurrSettings.normalizeDelivery(btn.dataset.type);
     renderCart();
   });
 });
@@ -425,14 +432,20 @@ document.querySelectorAll(".delivery-btn").forEach((btn) => {
 // ===== PLACE ORDER =====
 document.getElementById("placeOrderBtn").addEventListener("click", () => {
   if (cart.length === 0) {
-    showToast("Your cart is empty!");
+    showToast(PurrSettings.t("toast.cartEmpty"));
     return;
   }
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  const deliveryFee = deliveryType === "Delivery" ? 2.0 : 0;
+  const deliveryFee = deliveryType === "delivery" ? 2.0 : 0;
   const order = {
     id: Date.now(),
-    date: new Date().toLocaleString("en-US"),
+    date: new Date().toLocaleString(
+      PurrSettings.getSettings().language === "pt"
+        ? "pt-BR"
+        : PurrSettings.getSettings().language === "es"
+          ? "es"
+          : "en-US",
+    ),
     deliveryType,
     items: [...cart],
     total: subtotal + deliveryFee - discount,
@@ -443,7 +456,7 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
   discount = 0;
   saveCart();
   renderCart();
-  showToast("Order placed successfully!");
+  showToast(PurrSettings.t("toast.orderPlaced"));
 });
 
 // ===== SIDEBAR NAV =====
@@ -477,7 +490,7 @@ document.querySelectorAll(".nav-link[data-page]").forEach((link) => {
 
 // ===== LOG OUT =====
 document.getElementById("logoutBtn").addEventListener("click", () => {
-  showToast("See you soon!");
+  showToast(PurrSettings.t("toast.seeYouSoon"));
   setTimeout(() => {
     window.location.href = "login.html";
   }, 1200);
@@ -485,7 +498,7 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 
 // ===== FILTER BTN (demo) =====
 document.querySelector(".filter-btn").addEventListener("click", () => {
-  showToast("Filter coming soon!");
+  showToast(PurrSettings.t("toast.filterSoon"));
 });
 
 // ===== TOAST =====
@@ -522,6 +535,29 @@ function showToast(msg) {
   });
 })();
 
+window.applyMenuDefaults = function (settings) {
+  deliveryType = PurrSettings.normalizeDelivery(settings.defaultDelivery);
+};
+
+window.onPurrSettingsChange = function () {
+  deliveryType = PurrSettings.normalizeDelivery(
+    PurrSettings.getSettings().defaultDelivery,
+  );
+  document.querySelectorAll(".delivery-btn").forEach((btn) => {
+    btn.classList.toggle(
+      "active",
+      PurrSettings.normalizeDelivery(btn.dataset.type) === deliveryType,
+    );
+  });
+  renderProducts();
+  renderCart();
+};
+
 // ===== INIT =====
+if (typeof PurrSettings !== "undefined") {
+  deliveryType = PurrSettings.normalizeDelivery(
+    PurrSettings.getSettings().defaultDelivery,
+  );
+}
 renderProducts();
 renderCart();

@@ -74,15 +74,15 @@
         <header class="topbar">
           <div class="search-wrap">
             <i class="ph-bold ph-magnifying-glass search-icon"></i>
-            <input type="text" id="search" placeholder="Search" />
+            <input type="text" id="search" data-i18n-placeholder="menu.search" placeholder="Search" />
           </div>
           <button class="filter-btn">
             <i class="ph-bold ph-sliders"></i>
-            Filter
+            <span data-i18n="menu.filter">Filter</span>
           </button>
         </header>
 
-        <h1 class="page-title">Coffee menu</h1>
+        <h1 class="page-title" data-i18n="menu.title">Coffee menu</h1>
 
         <div class="tabs" id="tabs">
           <button class="tab active" data-category="coffee">Coffee</button>
@@ -97,18 +97,18 @@
 
       <!-- CART SIDEBAR -->
       <aside class="cart-sidebar">
-        <h2 class="cart-title">Cart summary</h2>
+        <h2 class="cart-title" data-i18n="menu.cartTitle">Cart summary</h2>
 
         <div class="delivery-options">
-          <button class="delivery-btn active" data-type="Delivery">
+          <button class="delivery-btn active" data-type="delivery">
             <i class="ph-bold ph-truck"></i>
             <span>Delivery</span>
           </button>
-          <button class="delivery-btn" data-type="Dine in">
+          <button class="delivery-btn" data-type="dinein">
             <i class="ph-bold ph-fork-knife"></i>
             <span>Dine in</span>
           </button>
-          <button class="delivery-btn" data-type="Take away">
+          <button class="delivery-btn" data-type="takeaway">
             <i class="ph-bold ph-bag"></i>
             <span>Take away</span>
           </button>
@@ -120,20 +120,20 @@
 
         <div class="cart-summary">
           <div class="summary-row">
-            <span>Price</span>
+            <span data-i18n="menu.price">Price</span>
             <span id="priceEl">$0.00</span>
           </div>
           <div class="summary-row discount-row">
-            <span>Discount applied</span>
+            <span data-i18n="menu.discount">Discount applied</span>
             <span id="discountEl">-$0.00</span>
           </div>
           <div class="summary-row total-row">
-            <span>Grand total</span>
+            <span data-i18n="menu.total">Grand total</span>
             <span id="totalEl">$0.00</span>
           </div>
         </div>
 
-        <button class="place-order-btn" id="placeOrderBtn">
+        <button class="place-order-btn" id="placeOrderBtn" data-i18n="menu.placeOrder">
           Place an order
         </button>
       </aside>
@@ -141,6 +141,7 @@
 
     <div class="toast" id="toast"></div>
 
+    <script src="js/settings.js"></script>
     <script src="js/mobile-nav.js"></script>
     <script src="script.js"></script>
     <script src="js/pix-support.js"></script>

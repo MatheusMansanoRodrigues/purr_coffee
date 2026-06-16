@@ -104,7 +104,7 @@ body::before {
 
 /* Decoração de fundo da sidebar */
 .sidebar::after {
-  content: "☕🐾☕🐾";
+  content: "";
   position: absolute;
   bottom: 80px;
   left: 50%;
@@ -611,7 +611,7 @@ body::before {
 }
 
 .cart-title::after {
-  content: "🛒";
+  content: "";
   font-size: 18px;
 }
 
@@ -868,10 +868,6 @@ body::before {
   pointer-events: none;
   font-family: "Nunito", sans-serif;
   border: 1.5px solid rgba(200, 120, 58, 0.3);
-}
-
-.toast::before {
-  content: "☕ ";
 }
 
 .toast.show {

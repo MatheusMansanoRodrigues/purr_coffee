@@ -22,7 +22,7 @@
 
 /* Decoração sutil no hero */
 .hero::before {
-  content: "☕";
+  content: "";
   position: absolute;
   right: 260px;
   top: 20px;
@@ -251,7 +251,7 @@
 }
 
 .promo::before {
-  content: "🎁";
+  content: "";
   position: absolute;
   left: -10px;
   top: -10px;

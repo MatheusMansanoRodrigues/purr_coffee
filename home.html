@@ -74,9 +74,10 @@
         <div class="hero">
           <div>
             <h1 class="hero-title">
-              Good morning,<br />coffee lover <i class="ph-bold ph-coffee"></i>
+              <span data-i18n="home.title" data-i18n-html="true">Good morning,<br />coffee lover</span>
+              <i class="ph-bold ph-coffee"></i>
             </h1>
-            <p class="hero-sub">
+            <p class="hero-sub" data-i18n="home.sub">
               What are you having today? Explore our fresh menu and place your
               order.
             </p>
@@ -93,18 +94,18 @@
                 <line x1="8" y1="12" x2="21" y2="12" />
                 <line x1="8" y1="18" x2="21" y2="18" />
               </svg>
-              Browse menu
+              <span data-i18n="home.browse">Browse menu</span>
             </a>
           </div>
           <img src="imgs/corpo.png" alt="mascot" class="hero-img" />
         </div>
 
         <!-- Quick actions -->
-        <p class="section-title">Quick access</p>
+        <p class="section-title" data-i18n="home.quickAccess">Quick access</p>
         <div class="quick-grid">
           <a href="index.html" class="quick-card" style="animation-delay: 0.1s">
             <span class="quick-icon"><i class="ph-bold ph-coffee"></i></span>
-            <span class="quick-label">Menu</span>
+            <span class="quick-label" data-i18n="home.menu">Menu</span>
           </a>
           <a
             href="orders.html"
@@ -114,7 +115,7 @@
             <span class="quick-icon"
               ><i class="ph-bold ph-shopping-cart"></i
             ></span>
-            <span class="quick-label">My cart</span>
+            <span class="quick-label" data-i18n="home.cart">My cart</span>
           </a>
           <a
             href="history.html"
@@ -124,7 +125,7 @@
             <span class="quick-icon"
               ><i class="ph-bold ph-clock-counter-clockwise"></i
             ></span>
-            <span class="quick-label">History</span>
+            <span class="quick-label" data-i18n="home.history">History</span>
           </a>
           <a
             href="partners.html"
@@ -132,46 +133,46 @@
             style="animation-delay: 0.25s"
           >
             <span class="quick-icon"><i class="ph-bold ph-users"></i></span>
-            <span class="quick-label">Partners</span>
+            <span class="quick-label" data-i18n="home.partners">Partners</span>
           </a>
         </div>
 
         <!-- Featured -->
-        <p class="section-title">Today's highlights</p>
+        <p class="section-title" data-i18n="home.highlights">Today's highlights</p>
         <div class="highlight-grid">
           <div class="highlight-card" style="animation-delay: 0.1s">
             <div class="highlight-img"><i class="ph-bold ph-coffee"></i></div>
             <div class="highlight-body">
               <div class="highlight-name">Cappuccino</div>
-              <div class="highlight-price">$1.50 · Small or Large</div>
+              <div class="highlight-price"><span data-fmt-price="1.50"></span> · <span data-i18n="home.priceSmallLarge">Small or Large</span></div>
             </div>
-            <a href="index.html" class="highlight-btn">Order now</a>
+            <a href="index.html" class="highlight-btn" data-i18n="home.orderNow">Order now</a>
           </div>
           <div class="highlight-card" style="animation-delay: 0.17s">
             <div class="highlight-img"><i class="ph-bold ph-mug"></i></div>
             <div class="highlight-body">
               <div class="highlight-name">Matcha Latte</div>
-              <div class="highlight-price">$2.20 · Small or Large</div>
+              <div class="highlight-price"><span data-fmt-price="2.20"></span> · <span data-i18n="home.priceSmallLarge">Small or Large</span></div>
             </div>
-            <a href="index.html" class="highlight-btn">Order now</a>
+            <a href="index.html" class="highlight-btn" data-i18n="home.orderNow">Order now</a>
           </div>
           <div class="highlight-card" style="animation-delay: 0.24s">
             <div class="highlight-img"><i class="ph-bold ph-cookie"></i></div>
             <div class="highlight-body">
               <div class="highlight-name">Cookie</div>
-              <div class="highlight-price">$1.10 · Classic</div>
+              <div class="highlight-price"><span data-fmt-price="1.10"></span> · <span data-i18n="home.priceClassic">Classic</span></div>
             </div>
-            <a href="index.html" class="highlight-btn">Order now</a>
+            <a href="index.html" class="highlight-btn" data-i18n="home.orderNow">Order now</a>
           </div>
         </div>
 
         <!-- Promo -->
         <div class="promo">
           <div>
-            <p>Use code <strong>PURR10</strong> and get 10% off</p>
-            <span>Valid on any order today only</span>
+            <p data-i18n="home.promo" data-i18n-html="true">Use code <strong>PURR10</strong> and get 10% off</p>
+            <span data-i18n="home.promoSub">Valid on any order today only</span>
           </div>
-          <button class="promo-code" onclick="copyCode()">Copy code</button>
+          <button class="promo-code" onclick="copyCode()" data-i18n="home.copyCode">Copy code</button>
         </div>
       </main>
     </div>
@@ -185,7 +186,7 @@
 
       function copyCode() {
         navigator.clipboard.writeText("PURR10").catch(() => {});
-        showToast("Code PURR10 copied!");
+        showToast(PurrSettings.t("toast.codeCopied"));
       }
       let tt;
       function showToast(m) {
@@ -196,6 +197,7 @@
         tt = setTimeout(() => t.classList.remove("show"), 2400);
       }
     </script>
+    <script src="js/settings.js"></script>
     <script src="js/mobile-nav.js"></script>
     <script src="js/pix-support.js"></script>
   </body>

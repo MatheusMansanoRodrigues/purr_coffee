@@ -62,8 +62,8 @@
       <main class="content">
         <div class="page-header">
           <div>
-            <h1 class="page-title">Settings</h1>
-            <p class="page-sub">Manage your account and preferences</p>
+            <h1 class="page-title" data-i18n="settings.title">Settings</h1>
+            <p class="page-sub" data-i18n="settings.sub">Manage your account and preferences</p>
           </div>
         </div>
 
@@ -79,7 +79,7 @@
               >
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" /></svg
-              >Profile
+              ><span data-i18n="settings.profile">Profile</span>
             </button>
             <button class="s-nav-btn" data-section="notifications">
               <svg
@@ -90,7 +90,7 @@
               >
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
                 <path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg
-              >Notifications
+              ><span data-i18n="settings.notifications">Notifications</span>
             </button>
             <button class="s-nav-btn" data-section="preferences">
               <svg
@@ -102,7 +102,7 @@
                 <line x1="4" y1="6" x2="20" y2="6" />
                 <line x1="8" y1="12" x2="16" y2="12" />
                 <line x1="11" y1="18" x2="13" y2="18" /></svg
-              >Preferences
+              ><span data-i18n="settings.preferences">Preferences</span>
             </button>
             <button class="s-nav-btn" data-section="privacy">
               <svg
@@ -113,10 +113,10 @@
               >
                 <rect x="3" y="11" width="18" height="11" rx="2" />
                 <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg
-              >Privacy
+              ><span data-i18n="settings.privacy">Privacy</span>
             </button>
             <button class="s-nav-btn" data-section="account">
-              <i class="ph-bold ph-gear-six"></i>Account
+              <i class="ph-bold ph-gear-six"></i><span data-i18n="settings.account">Account</span>
             </button>
           </div>
 
@@ -127,278 +127,261 @@
               <div class="avatar-row">
                 <div class="avatar"><i class="ph-bold ph-coffee"></i></div>
                 <div class="avatar-info">
-                  <h3>Coffee Lover</h3>
-                  <p>coffee@purr.com</p>
+                  <h3 id="profileDisplayName">Coffee Lover</h3>
+                  <p id="profileDisplayEmail">coffee@purr.com</p>
                 </div>
                 <button
                   class="change-photo"
-                  onclick="showToast('Photo upload coming soon!')"
+                  onclick="showToast(PurrSettings.t('toast.photoSoon'))"
+                  data-i18n="settings.changePhoto"
                 >
                   Change photo
                 </button>
               </div>
-              <p class="section-label">Personal info</p>
+              <p class="section-label" data-i18n="settings.personalInfo">Personal info</p>
               <div class="setting-row" style="animation-delay: 0.05s">
                 <div class="setting-info">
-                  <span class="setting-name">Full name</span>
+                  <span class="setting-name" data-i18n="settings.fullName">Full name</span>
                 </div>
                 <input
                   class="setting-input"
                   type="text"
-                  value="Coffee Lover"
+                  id="profileName"
                   placeholder="Your name"
                 />
               </div>
               <div class="setting-row" style="animation-delay: 0.1s">
                 <div class="setting-info">
-                  <span class="setting-name">E-mail</span>
+                  <span class="setting-name" data-i18n="settings.email">E-mail</span>
                 </div>
                 <input
                   class="setting-input"
                   type="email"
-                  value="coffee@purr.com"
+                  id="profileEmail"
                 />
               </div>
               <div class="setting-row" style="animation-delay: 0.15s">
                 <div class="setting-info">
-                  <span class="setting-name">Phone</span>
+                  <span class="setting-name" data-i18n="settings.phone">Phone</span>
                 </div>
                 <input
                   class="setting-input"
                   type="tel"
+                  id="profilePhone"
                   placeholder="+55 (11) 99999-0000"
                 />
               </div>
-              <button class="save-btn" onclick="showToast('Profile saved!')">
+              <button class="save-btn" id="saveProfileBtn" data-i18n="settings.save">
                 Save changes
               </button>
             </div>
 
             <!-- NOTIFICATIONS -->
             <div class="settings-section" id="sec-notifications">
-              <p class="section-label">Push notifications</p>
+              <p class="section-label" data-i18n="settings.pushNotif">Push notifications</p>
               <div class="setting-row" style="animation-delay: 0.05s">
                 <div class="setting-info">
-                  <span class="setting-name">Order updates</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.orderUpdates">Order updates</span
+                  ><span class="setting-desc" data-i18n="settings.orderUpdatesDesc"
                     >Get notified when your order status changes</span
                   >
                 </div>
                 <label class="toggle"
-                  ><input type="checkbox" checked /><span class="slider"></span
+                  ><input type="checkbox" id="notifOrderUpdates" /><span class="slider"></span
                 ></label>
               </div>
               <div class="setting-row" style="animation-delay: 0.1s">
                 <div class="setting-info">
-                  <span class="setting-name">Promotions</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.promotions">Promotions</span
+                  ><span class="setting-desc" data-i18n="settings.promotionsDesc"
                     >Receive discount codes and special offers</span
                   >
                 </div>
                 <label class="toggle"
-                  ><input type="checkbox" checked /><span class="slider"></span
+                  ><input type="checkbox" id="notifPromotions" /><span class="slider"></span
                 ></label>
               </div>
               <div class="setting-row" style="animation-delay: 0.15s">
                 <div class="setting-info">
-                  <span class="setting-name">New items</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.newItems">New items</span
+                  ><span class="setting-desc" data-i18n="settings.newItemsDesc"
                     >Be the first to know about new menu additions</span
                   >
                 </div>
                 <label class="toggle"
-                  ><input type="checkbox" /><span class="slider"></span
+                  ><input type="checkbox" id="notifNewItems" /><span class="slider"></span
                 ></label>
               </div>
-              <p class="section-label">E-mail</p>
+              <p class="section-label" data-i18n="settings.emailSection">E-mail</p>
               <div class="setting-row" style="animation-delay: 0.2s">
                 <div class="setting-info">
-                  <span class="setting-name">Weekly newsletter</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.newsletter">Weekly newsletter</span
+                  ><span class="setting-desc" data-i18n="settings.newsletterDesc"
                     >Tips, stories and coffee culture</span
                   >
                 </div>
                 <label class="toggle"
-                  ><input type="checkbox" /><span class="slider"></span
+                  ><input type="checkbox" id="notifNewsletter" /><span class="slider"></span
                 ></label>
               </div>
               <div class="setting-row" style="animation-delay: 0.25s">
                 <div class="setting-info">
-                  <span class="setting-name">Order receipts</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.receipts">Order receipts</span
+                  ><span class="setting-desc" data-i18n="settings.receiptsDesc"
                     >Receive a receipt after every order</span
                   >
                 </div>
                 <label class="toggle"
-                  ><input type="checkbox" checked /><span class="slider"></span
+                  ><input type="checkbox" id="notifReceipts" /><span class="slider"></span
                 ></label>
               </div>
-              <button
-                class="save-btn"
-                onclick="showToast('Notifications saved!')"
-              >
+              <button class="save-btn" id="saveNotificationsBtn" data-i18n="settings.save">
                 Save changes
               </button>
             </div>
 
             <!-- PREFERENCES -->
             <div class="settings-section" id="sec-preferences">
-              <p class="section-label">Order defaults</p>
+              <p class="section-label" data-i18n="settings.orderDefaults">Order defaults</p>
               <div class="setting-row" style="animation-delay: 0.05s">
                 <div class="setting-info">
-                  <span class="setting-name">Default delivery type</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.defaultDelivery">Default delivery type</span
+                  ><span class="setting-desc" data-i18n="settings.defaultDeliveryDesc"
                     >Applied automatically when you open the cart</span
                   >
                 </div>
-                <select
-                  class="setting-select"
-                  onchange="showToast('Preference saved!')"
-                >
-                  <option>Delivery</option>
-                  <option>Dine in</option>
-                  <option>Take away</option>
+                <select class="setting-select" id="prefDelivery">
+                  <option value="delivery">Delivery</option>
+                  <option value="dinein">Dine in</option>
+                  <option value="takeaway">Take away</option>
                 </select>
               </div>
               <div class="setting-row" style="animation-delay: 0.1s">
                 <div class="setting-info">
-                  <span class="setting-name">Default cup size</span>
+                  <span class="setting-name" data-i18n="settings.defaultSize">Default cup size</span>
                 </div>
-                <select
-                  class="setting-select"
-                  onchange="showToast('Preference saved!')"
-                >
-                  <option>Small</option>
-                  <option>Large</option>
+                <select class="setting-select" id="prefSize">
+                  <option value="small">Small</option>
+                  <option value="large">Large</option>
                 </select>
               </div>
-              <p class="section-label">Display</p>
+              <p class="section-label" data-i18n="settings.display">Display</p>
               <div class="setting-row" style="animation-delay: 0.15s">
                 <div class="setting-info">
-                  <span class="setting-name">Language</span>
+                  <span class="setting-name" data-i18n="settings.language">Language</span>
                 </div>
-                <select
-                  class="setting-select"
-                  onchange="showToast('Language saved!')"
-                >
-                  <option>English</option>
-                  <option>Português</option>
-                  <option>Español</option>
+                <select class="setting-select" id="prefLanguage">
+                  <option value="en">English</option>
+                  <option value="pt">Português</option>
+                  <option value="es">Español</option>
                 </select>
               </div>
               <div class="setting-row" style="animation-delay: 0.2s">
                 <div class="setting-info">
-                  <span class="setting-name">Currency</span>
+                  <span class="setting-name" data-i18n="settings.currency">Currency</span>
                 </div>
-                <select
-                  class="setting-select"
-                  onchange="showToast('Currency saved!')"
-                >
-                  <option>USD ($)</option>
-                  <option>BRL (R$)</option>
-                  <option>EUR (€)</option>
+                <select class="setting-select" id="prefCurrency">
+                  <option value="USD">USD ($)</option>
+                  <option value="BRL">BRL (R$)</option>
+                  <option value="EUR">EUR (€)</option>
                 </select>
               </div>
-              <button
-                class="save-btn"
-                onclick="showToast('Preferences saved!')"
-              >
+              <button class="save-btn" id="savePreferencesBtn" data-i18n="settings.save">
                 Save changes
               </button>
             </div>
 
             <!-- PRIVACY -->
             <div class="settings-section" id="sec-privacy">
-              <p class="section-label">Data & privacy</p>
+              <p class="section-label" data-i18n="settings.dataPrivacy">Data & privacy</p>
               <div class="setting-row" style="animation-delay: 0.05s">
                 <div class="setting-info">
-                  <span class="setting-name">Share usage analytics</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.analytics">Share usage analytics</span
+                  ><span class="setting-desc" data-i18n="settings.analyticsDesc"
                     >Help us improve the app with anonymous data</span
                   >
                 </div>
                 <label class="toggle"
-                  ><input type="checkbox" checked /><span class="slider"></span
+                  ><input type="checkbox" id="privacyAnalytics" /><span class="slider"></span
                 ></label>
               </div>
               <div class="setting-row" style="animation-delay: 0.1s">
                 <div class="setting-info">
-                  <span class="setting-name">Personalised recommendations</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.recommendations">Personalised recommendations</span
+                  ><span class="setting-desc" data-i18n="settings.recommendationsDesc"
                     >Show items based on your order history</span
                   >
                 </div>
                 <label class="toggle"
-                  ><input type="checkbox" checked /><span class="slider"></span
+                  ><input type="checkbox" id="privacyRecommendations" /><span class="slider"></span
                 ></label>
               </div>
               <div class="setting-row" style="animation-delay: 0.15s">
                 <div class="setting-info">
-                  <span class="setting-name">Save address history</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.addressHistory">Save address history</span
+                  ><span class="setting-desc" data-i18n="settings.addressHistoryDesc"
                     >Remember delivery addresses for faster checkout</span
                   >
                 </div>
                 <label class="toggle"
-                  ><input type="checkbox" /><span class="slider"></span
+                  ><input type="checkbox" id="privacyAddressHistory" /><span class="slider"></span
                 ></label>
               </div>
-              <button
-                class="save-btn"
-                onclick="showToast('Privacy settings saved!')"
-              >
+              <button class="save-btn" id="savePrivacyBtn" data-i18n="settings.save">
                 Save changes
               </button>
             </div>
 
             <!-- ACCOUNT -->
             <div class="settings-section" id="sec-account">
-              <p class="section-label">Security</p>
+              <p class="section-label" data-i18n="settings.security">Security</p>
               <div class="setting-row" style="animation-delay: 0.05s">
                 <div class="setting-info">
-                  <span class="setting-name">Change password</span
-                  ><span class="setting-desc">Update your login password</span>
+                  <span class="setting-name" data-i18n="settings.changePassword">Change password</span
+                  ><span class="setting-desc" data-i18n="settings.changePasswordDesc">Update your login password</span>
                 </div>
                 <button
                   class="change-photo"
-                  onclick="showToast('Change password coming soon!')"
+                  onclick="showToast(PurrSettings.t('toast.passwordSoon'))"
+                  data-i18n="settings.update"
                 >
                   Update
                 </button>
               </div>
               <div class="setting-row" style="animation-delay: 0.1s">
                 <div class="setting-info">
-                  <span class="setting-name">Two-factor authentication</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.twoFactor">Two-factor authentication</span
+                  ><span class="setting-desc" data-i18n="settings.twoFactorDesc"
                     >Add an extra layer of security</span
                   >
                 </div>
                 <label class="toggle"
-                  ><input type="checkbox" /><span class="slider"></span
+                  ><input type="checkbox" id="accountTwoFactor" /><span class="slider"></span
                 ></label>
               </div>
-              <p class="section-label">Danger zone</p>
+              <p class="section-label" data-i18n="settings.dangerZone">Danger zone</p>
               <div class="setting-row" style="animation-delay: 0.15s">
                 <div class="setting-info">
-                  <span class="setting-name">Clear local data</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.clearData">Clear local data</span
+                  ><span class="setting-desc" data-i18n="settings.clearDataDesc"
                     >Remove cart and order history from this device</span
                   >
                 </div>
-                <button class="danger-btn" onclick="clearData()">
+                <button class="danger-btn" onclick="clearData()" data-i18n="settings.clearDataBtn">
                   Clear data
                 </button>
               </div>
               <div class="setting-row" style="animation-delay: 0.2s">
                 <div class="setting-info">
-                  <span class="setting-name">Delete account</span
-                  ><span class="setting-desc"
+                  <span class="setting-name" data-i18n="settings.deleteAccount">Delete account</span
+                  ><span class="setting-desc" data-i18n="settings.deleteAccountDesc"
                     >Permanently remove your account and all data</span
                   >
                 </div>
                 <button
                   class="danger-btn"
-                  onclick="showToast('Account deletion coming soon!')"
+                  onclick="showToast(PurrSettings.t('toast.deleteSoon'))"
+                  data-i18n="settings.deleteAccountBtn"
                 >
                   Delete account
                 </button>
@@ -409,6 +392,7 @@
       </main>
     </div>
     <div class="toast" id="toast"></div>
+    <script src="js/settings.js"></script>
     <script>
       const cart = JSON.parse(localStorage.getItem("purr_cart")) || [];
       document.getElementById("cartBadge").textContent = cart.reduce(
@@ -431,11 +415,111 @@
         });
       });
 
+      function loadFormFromSettings() {
+        const s = PurrSettings.getSettings();
+        document.getElementById("profileName").value = s.profile.name;
+        document.getElementById("profileEmail").value = s.profile.email;
+        document.getElementById("profilePhone").value = s.profile.phone || "";
+        document.getElementById("profileDisplayName").textContent = s.profile.name;
+        document.getElementById("profileDisplayEmail").textContent = s.profile.email;
+
+        document.getElementById("notifOrderUpdates").checked = s.notifications.orderUpdates;
+        document.getElementById("notifPromotions").checked = s.notifications.promotions;
+        document.getElementById("notifNewItems").checked = s.notifications.newItems;
+        document.getElementById("notifNewsletter").checked = s.notifications.newsletter;
+        document.getElementById("notifReceipts").checked = s.notifications.receipts;
+
+        document.getElementById("prefDelivery").value = PurrSettings.normalizeDelivery(s.defaultDelivery);
+        document.getElementById("prefSize").value = PurrSettings.normalizeSize(s.defaultSize);
+        document.getElementById("prefLanguage").value = s.language;
+        document.getElementById("prefCurrency").value = s.currency;
+
+        document.getElementById("privacyAnalytics").checked = s.privacy.analytics;
+        document.getElementById("privacyRecommendations").checked = s.privacy.recommendations;
+        document.getElementById("privacyAddressHistory").checked = s.privacy.addressHistory;
+
+        updatePrefSelectLabels();
+      }
+
+      function updatePrefSelectLabels() {
+        const delivery = document.getElementById("prefDelivery");
+        delivery.querySelector('[value="delivery"]').textContent = PurrSettings.t("delivery.delivery");
+        delivery.querySelector('[value="dinein"]').textContent = PurrSettings.t("delivery.dinein");
+        delivery.querySelector('[value="takeaway"]').textContent = PurrSettings.t("delivery.takeaway");
+
+        const size = document.getElementById("prefSize");
+        size.querySelector('[value="small"]').textContent = PurrSettings.t("size.small");
+        size.querySelector('[value="large"]').textContent = PurrSettings.t("size.large");
+      }
+
+      function savePreferences(fromSelect) {
+        PurrSettings.saveSettings({
+          defaultDelivery: document.getElementById("prefDelivery").value,
+          defaultSize: document.getElementById("prefSize").value,
+          language: document.getElementById("prefLanguage").value,
+          currency: document.getElementById("prefCurrency").value,
+        });
+        loadFormFromSettings();
+        if (fromSelect === "language") {
+          showToast(PurrSettings.t("toast.languageSaved"));
+        } else if (fromSelect === "currency") {
+          showToast(PurrSettings.t("toast.currencySaved"));
+        } else {
+          showToast(PurrSettings.t("toast.preferencesSaved"));
+        }
+      }
+
+      document.getElementById("saveProfileBtn").addEventListener("click", () => {
+        const name = document.getElementById("profileName").value.trim();
+        const email = document.getElementById("profileEmail").value.trim();
+        const phone = document.getElementById("profilePhone").value.trim();
+        PurrSettings.saveSettings({
+          profile: { name: name || PurrSettings.DEFAULTS.profile.name, email, phone },
+        });
+        loadFormFromSettings();
+        showToast(PurrSettings.t("toast.profileSaved"));
+      });
+
+      document.getElementById("saveNotificationsBtn").addEventListener("click", () => {
+        PurrSettings.saveSettings({
+          notifications: {
+            orderUpdates: document.getElementById("notifOrderUpdates").checked,
+            promotions: document.getElementById("notifPromotions").checked,
+            newItems: document.getElementById("notifNewItems").checked,
+            newsletter: document.getElementById("notifNewsletter").checked,
+            receipts: document.getElementById("notifReceipts").checked,
+          },
+        });
+        showToast(PurrSettings.t("toast.notificationsSaved"));
+      });
+
+      document.getElementById("savePreferencesBtn").addEventListener("click", () => {
+        savePreferences("all");
+      });
+
+      ["prefLanguage", "prefCurrency", "prefDelivery", "prefSize"].forEach((id) => {
+        document.getElementById(id).addEventListener("change", () => {
+          const field = id.replace("pref", "").toLowerCase();
+          savePreferences(field === "language" || field === "currency" ? field : "all");
+        });
+      });
+
+      document.getElementById("savePrivacyBtn").addEventListener("click", () => {
+        PurrSettings.saveSettings({
+          privacy: {
+            analytics: document.getElementById("privacyAnalytics").checked,
+            recommendations: document.getElementById("privacyRecommendations").checked,
+            addressHistory: document.getElementById("privacyAddressHistory").checked,
+          },
+        });
+        showToast(PurrSettings.t("toast.privacySaved"));
+      });
+
       function clearData() {
-        if (!confirm("Clear all local cart and order data?")) return;
+        if (!confirm(PurrSettings.t("confirm.clearData"))) return;
         localStorage.removeItem("purr_cart");
         localStorage.removeItem("purr_orders");
-        showToast("Local data cleared.");
+        showToast(PurrSettings.t("toast.dataCleared"));
       }
 
       let tt;
@@ -446,6 +530,9 @@
         clearTimeout(tt);
         tt = setTimeout(() => t.classList.remove("show"), 2400);
       }
+
+      window.onPurrSettingsChange = loadFormFromSettings;
+      loadFormFromSettings();
     </script>
     <script src="js/mobile-nav.js"></script>
     <script src="js/pix-support.js"></script>

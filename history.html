@@ -62,10 +62,10 @@
       <main class="content">
         <div class="page-header">
           <div>
-            <h1 class="page-title">History</h1>
-            <p class="page-sub">All your past orders in one place</p>
+            <h1 class="page-title" data-i18n="history.title">History</h1>
+            <p class="page-sub" data-i18n="history.sub">All your past orders in one place</p>
           </div>
-          <button class="clear-all" id="clearAllBtn">Clear history</button>
+          <button class="clear-all" id="clearAllBtn" data-i18n="history.clearAll">Clear history</button>
         </div>
 
         <!-- Mini stats -->
@@ -73,16 +73,17 @@
 
         <!-- Filters -->
         <div class="filter-bar">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="Delivery">Delivery</button>
-          <button class="filter-btn" data-filter="Dine in">Dine in</button>
-          <button class="filter-btn" data-filter="Take away">Take away</button>
+          <button class="filter-btn active" data-filter="all" data-i18n="history.filter.all">All</button>
+          <button class="filter-btn" data-filter="delivery" data-i18n="delivery.delivery">Delivery</button>
+          <button class="filter-btn" data-filter="dinein" data-i18n="delivery.dinein">Dine in</button>
+          <button class="filter-btn" data-filter="takeaway" data-i18n="delivery.takeaway">Take away</button>
         </div>
 
         <div id="historyList"></div>
       </main>
     </div>
     <div class="toast" id="toast"></div>
+    <script src="js/settings.js"></script>
     <script>
       let orders = JSON.parse(localStorage.getItem("purr_orders")) || [];
       let activeFilter = "all";
@@ -93,16 +94,10 @@
       );
 
       function fmt(v) {
-        return "$" + Number(v).toFixed(2);
+        return PurrSettings.fmt(v);
       }
       function fmtDate(id) {
-        return new Date(Number(id)).toLocaleDateString("en-US", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
+        return PurrSettings.fmtDateFromId(id);
       }
 
       function renderStats() {
@@ -117,9 +112,9 @@
           0,
         );
         strip.innerHTML = `
-      <div class="stat-mini"><span class="stat-mini-val">${orders.length}</span><span class="stat-mini-lbl">Total orders</span></div>
-      <div class="stat-mini"><span class="stat-mini-val">${items}</span><span class="stat-mini-lbl">Items ordered</span></div>
-      <div class="stat-mini"><span class="stat-mini-val">${fmt(total)}</span><span class="stat-mini-lbl">Total spent</span></div>
+      <div class="stat-mini"><span class="stat-mini-val">${orders.length}</span><span class="stat-mini-lbl">${PurrSettings.t("history.stat.orders")}</span></div>
+      <div class="stat-mini"><span class="stat-mini-val">${items}</span><span class="stat-mini-lbl">${PurrSettings.t("history.stat.items")}</span></div>
+      <div class="stat-mini"><span class="stat-mini-val">${fmt(total)}</span><span class="stat-mini-lbl">${PurrSettings.t("history.stat.spent")}</span></div>
     `;
       }
 
@@ -128,10 +123,15 @@
         const filtered = [...orders]
           .reverse()
           .filter(
-            (o) => activeFilter === "all" || o.deliveryType === activeFilter,
+            (o) =>
+              activeFilter === "all" ||
+              PurrSettings.normalizeDelivery(o.deliveryType) === activeFilter,
           );
         if (!filtered.length) {
-          list.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="ph-bold ph-clipboard-text"></i></div><h3>No orders found</h3><p>${orders.length ? "Try a different filter." : "Place your first order from the menu."}</p></div>`;
+          const msg = orders.length
+            ? PurrSettings.t("history.tryFilter")
+            : PurrSettings.t("history.firstOrder");
+          list.innerHTML = `<div class="empty-state"><div class="empty-icon"><i class="ph-bold ph-clipboard-text"></i></div><h3>${PurrSettings.t("history.noOrders")}</h3><p>${msg}</p></div>`;
           return;
         }
         list.innerHTML = filtered
@@ -139,7 +139,7 @@
             const tags = o.items
               .map(
                 (it) =>
-                  `<span class="tag">${it.qty}× ${it.name} (${it.size})</span>`,
+                  `<span class="tag">${it.qty}× ${it.name} (${PurrSettings.sizeLabel(it.size)})</span>`,
               )
               .join("");
             return `
@@ -149,14 +149,14 @@
               <span class="order-id">#${String(o.id).slice(-6)}</span>
               <span class="order-date">${fmtDate(o.id)}</span>
             </div>
-            <span class="status-done">Delivered</span>
+            <span class="status-done">${PurrSettings.t("history.delivered")}</span>
           </div>
           <div class="tags-row">${tags}</div>
           <div class="order-foot">
-            <span>${o.deliveryType}</span>
+            <span>${PurrSettings.deliveryLabel(o.deliveryType)}</span>
             <div style="display:flex;align-items:center;gap:12px;">
               <strong>${fmt(o.total)}</strong>
-              <button class="reorder-btn" onclick="reorder(${o.id})">Reorder</button>
+              <button class="reorder-btn" onclick="reorder(${o.id})">${PurrSettings.t("history.reorder")}</button>
             </div>
           </div>
         </div>`;
@@ -174,7 +174,7 @@
           else cart.push({ ...it });
         });
         localStorage.setItem("purr_cart", JSON.stringify(cart));
-        showToast("Items added to cart!");
+        showToast(PurrSettings.t("toast.reorder"));
       }
 
       document.querySelectorAll(".filter-btn").forEach((btn) => {
@@ -190,12 +190,12 @@
 
       document.getElementById("clearAllBtn").addEventListener("click", () => {
         if (!orders.length) return;
-        if (!confirm("Clear all history?")) return;
+        if (!confirm(PurrSettings.t("confirm.clearHistorySimple"))) return;
         orders = [];
         localStorage.setItem("purr_orders", JSON.stringify(orders));
         renderStats();
         renderHistory();
-        showToast("History cleared.");
+        showToast(PurrSettings.t("toast.historyCleared"));
       });
 
       let tt;
@@ -206,6 +206,11 @@
         clearTimeout(tt);
         tt = setTimeout(() => t.classList.remove("show"), 2400);
       }
+
+      window.onPurrSettingsChange = function () {
+        renderStats();
+        renderHistory();
+      };
 
       renderStats();
       renderHistory();

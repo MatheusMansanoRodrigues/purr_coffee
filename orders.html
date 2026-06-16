@@ -72,8 +72,8 @@
       <main class="content">
         <div class="page-header">
           <div>
-            <h1 class="page-title">My Orders</h1>
-            <p class="page-sub">
+            <h1 class="page-title" data-i18n="orders.title">My Orders</h1>
+            <p class="page-sub" data-i18n="orders.sub">
               Track your cart, active orders and full history
             </p>
           </div>
@@ -87,7 +87,7 @@
               <line x1="19" y1="12" x2="5" y2="12" />
               <polyline points="12 19 5 12 12 5" />
             </svg>
-            Back to menu
+            <span data-i18n="orders.back">Back to menu</span>
           </a>
         </div>
 
@@ -95,7 +95,7 @@
         <div class="tabs-nav">
           <button class="tab-nav active" data-tab="cart">
             <i class="ph-bold ph-shopping-cart"></i>
-            Cart
+            <span data-i18n="orders.tab.cart">Cart</span>
             <span class="tab-badge" id="cartTabBadge">0</span>
           </button>
           <button class="tab-nav" data-tab="active">
@@ -108,12 +108,12 @@
               <circle cx="12" cy="12" r="10" />
               <polyline points="12 6 12 12 16 14" />
             </svg>
-            Active orders
+            <span data-i18n="orders.tab.active">Active orders</span>
             <span class="tab-badge" id="activeTabBadge">0</span>
           </button>
           <button class="tab-nav" data-tab="history">
             <i class="ph-bold ph-clock-counter-clockwise"></i>
-            History
+            <span data-i18n="orders.tab.history">History</span>
             <span class="tab-badge" id="histTabBadge">0</span>
           </button>
           <button class="tab-nav" data-tab="stats">
@@ -127,15 +127,15 @@
               <line x1="12" y1="20" x2="12" y2="4" />
               <line x1="6" y1="20" x2="6" y2="14" />
             </svg>
-            Stats
+            <span data-i18n="orders.tab.stats">Stats</span>
           </button>
         </div>
 
         <!-- ── TAB: CART ── -->
         <section class="tab-panel active" id="tab-cart">
           <div class="section-header">
-            <h2>Current cart</h2>
-            <button class="clear-btn" id="clearCartBtn">Clear cart</button>
+            <h2 data-i18n="orders.currentCart">Current cart</h2>
+            <button class="clear-btn" id="clearCartBtn" data-i18n="orders.clearCart">Clear cart</button>
           </div>
 
           <div id="cartList" class="order-list"></div>
@@ -143,24 +143,24 @@
           <div class="cart-footer" id="cartFooter" style="display: none">
             <div class="summary-card">
               <div class="summary-row">
-                <span>Subtotal</span><span id="cartSubtotal">$0.00</span>
+                <span data-i18n="orders.subtotal">Subtotal</span><span id="cartSubtotal">$0.00</span>
               </div>
               <div class="summary-row">
-                <span>Delivery fee</span><span id="cartDelivery">$0.00</span>
+                <span data-i18n="orders.deliveryFee">Delivery fee</span><span id="cartDelivery">$0.00</span>
               </div>
               <div class="summary-row total">
-                <span>Grand total</span><span id="cartTotal">$0.00</span>
+                <span data-i18n="orders.grandTotal">Grand total</span><span id="cartTotal">$0.00</span>
               </div>
             </div>
-            <a href="index.html" class="checkout-btn">Go to checkout →</a>
+            <a href="index.html" class="checkout-btn" data-i18n="orders.checkout">Go to checkout →</a>
           </div>
         </section>
 
         <!-- ── TAB: ACTIVE ── -->
         <section class="tab-panel" id="tab-active">
           <div class="section-header">
-            <h2>Active orders</h2>
-            <span class="section-hint">Orders placed and being prepared</span>
+            <h2 data-i18n="orders.activeTitle">Active orders</h2>
+            <span class="section-hint" data-i18n="orders.activeHint">Orders placed and being prepared</span>
           </div>
           <div id="activeList" class="order-list"></div>
         </section>
@@ -168,8 +168,8 @@
         <!-- ── TAB: HISTORY ── -->
         <section class="tab-panel" id="tab-history">
           <div class="section-header">
-            <h2>Order history</h2>
-            <button class="clear-btn danger" id="clearHistBtn">
+            <h2 data-i18n="orders.historyTitle">Order history</h2>
+            <button class="clear-btn danger" id="clearHistBtn" data-i18n="orders.clearHistory">
               Clear history
             </button>
           </div>
@@ -179,8 +179,8 @@
         <!-- ── TAB: STATS ── -->
         <section class="tab-panel" id="tab-stats">
           <div class="section-header">
-            <h2>My stats</h2>
-            <span class="section-hint">Based on your order history</span>
+            <h2 data-i18n="orders.statsTitle">My stats</h2>
+            <span class="section-hint" data-i18n="orders.statsHint">Based on your order history</span>
           </div>
           <div class="stats-grid" id="statsGrid"></div>
         </section>
@@ -189,25 +189,27 @@
 
     <div class="toast" id="toast"></div>
 
+    <script src="js/settings.js"></script>
     <script>
       // ── Dados do localStorage ──
       let cart = JSON.parse(localStorage.getItem("purr_cart")) || [];
       let orders = JSON.parse(localStorage.getItem("purr_orders")) || [];
-      // Pedidos "ativos" = últimos 2 pedidos simulados como em preparo
       let active = orders.slice(-2);
 
-      // ── Formatação ──
       function fmt(v) {
-        return "$" + Number(v).toFixed(2);
+        return PurrSettings.fmt(v);
       }
       function fmtDate(d) {
-        return new Date(d).toLocaleDateString("en-US", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
+        return PurrSettings.fmtDateFromId(d);
+      }
+
+      function statusSteps() {
+        return [
+          PurrSettings.t("orders.step.received"),
+          PurrSettings.t("orders.step.preparing"),
+          PurrSettings.t("orders.step.ready"),
+          PurrSettings.t("orders.step.delivered"),
+        ];
       }
 
       // ── Badges ──
@@ -226,8 +228,8 @@
 
         if (cart.length === 0) {
           list.innerHTML = emptyState(
-            "Your cart is empty",
-            "Add items from the menu to get started.",
+            PurrSettings.t("orders.emptyCart"),
+            PurrSettings.t("orders.emptyCartSub"),
           );
           footer.style.display = "none";
           return;
@@ -244,7 +246,7 @@
                 </div>
                 <div class="item-info">
                   <span class="item-name">${item.name}</span>
-                  <span class="item-meta">${item.size} · ${fmt(item.price)} each</span>
+                  <span class="item-meta">${PurrSettings.sizeLabel(item.size)} · ${fmt(item.price)} ${PurrSettings.t("orders.each")}</span>
                 </div>
                 <div class="item-controls">
                   <button class="ctrl-btn" onclick="cartChange(${i}, -1)">−</button>
@@ -285,43 +287,37 @@
         localStorage.setItem("purr_cart", JSON.stringify(cart));
         updateBadges();
         renderCart();
-        showToast("Item removed from cart.");
+        showToast(PurrSettings.t("toast.itemRemoved"));
       }
 
       document.getElementById("clearCartBtn").addEventListener("click", () => {
         if (!cart.length) return;
-        if (!confirm("Clear the entire cart?")) return;
+        if (!confirm(PurrSettings.t("confirm.clearCart"))) return;
         cart = [];
         localStorage.setItem("purr_cart", JSON.stringify(cart));
         updateBadges();
         renderCart();
-        showToast("Cart cleared.");
+        showToast(PurrSettings.t("toast.cartCleared"));
       });
 
       // ── RENDER ACTIVE ──
-      const STATUS_STEPS = [
-        "Order received",
-        "Preparing",
-        "Ready",
-        "Delivered",
-      ];
-
       function renderActive() {
         const list = document.getElementById("activeList");
+        const STATUS_STEPS = statusSteps();
         if (active.length === 0) {
           list.innerHTML = emptyState(
-            "No active orders",
-            "Place an order from the menu.",
+            PurrSettings.t("orders.noActive"),
+            PurrSettings.t("orders.noActiveSub"),
           );
           return;
         }
         list.innerHTML = active
           .map((order, oi) => {
-            const step = Math.min(1 + (oi % 2), 2); // simula: 0=preparing, 1=ready
+            const step = Math.min(1 + (oi % 2), 2);
             const items = order.items
               .map(
                 (it) =>
-                  `<span class="tag">${it.qty}× ${it.name} (${it.size})</span>`,
+                  `<span class="tag">${it.qty}× ${it.name} (${PurrSettings.sizeLabel(it.size)})</span>`,
               )
               .join("");
             const steps = STATUS_STEPS.map(
@@ -344,7 +340,7 @@
         <div class="tags-row">${items}</div>
         <div class="stepper">${steps}</div>
         <div class="order-foot">
-          <span>${order.deliveryType}</span>
+          <span>${PurrSettings.deliveryLabel(order.deliveryType)}</span>
           <strong>${fmt(order.total)}</strong>
         </div>
       </div>`;
@@ -357,8 +353,8 @@
         const list = document.getElementById("historyList");
         if (orders.length === 0) {
           list.innerHTML = emptyState(
-            "No order history",
-            "Your completed orders will appear here.",
+            PurrSettings.t("orders.noHistory"),
+            PurrSettings.t("orders.noHistorySub"),
           );
           return;
         }
@@ -368,7 +364,7 @@
             const items = order.items
               .map(
                 (it) =>
-                  `<span class="tag">${it.qty}× ${it.name} (${it.size})</span>`,
+                  `<span class="tag">${it.qty}× ${it.name} (${PurrSettings.sizeLabel(it.size)})</span>`,
               )
               .join("");
             return `
@@ -378,11 +374,11 @@
             <span class="order-id">#${String(order.id).slice(-6)}</span>
             <span class="order-date">${fmtDate(order.id)}</span>
           </div>
-          <span class="status-badge done-badge">Delivered</span>
+          <span class="status-badge done-badge">${PurrSettings.t("orders.delivered")}</span>
         </div>
         <div class="tags-row">${items}</div>
         <div class="order-foot">
-          <span>${order.deliveryType}</span>
+          <span>${PurrSettings.deliveryLabel(order.deliveryType)}</span>
           <strong>${fmt(order.total)}</strong>
         </div>
       </div>`;
@@ -392,7 +388,7 @@
 
       document.getElementById("clearHistBtn").addEventListener("click", () => {
         if (!orders.length) return;
-        if (!confirm("Clear all order history? This cannot be undone.")) return;
+        if (!confirm(PurrSettings.t("confirm.clearHistory"))) return;
         orders = [];
         active = [];
         localStorage.setItem("purr_orders", JSON.stringify(orders));
@@ -400,7 +396,7 @@
         renderActive();
         renderHistory();
         renderStats();
-        showToast("History cleared.");
+        showToast(PurrSettings.t("toast.historyCleared"));
       });
 
       // ── RENDER STATS ──
@@ -408,8 +404,8 @@
         const grid = document.getElementById("statsGrid");
         if (orders.length === 0) {
           grid.innerHTML = emptyState(
-            "No data yet",
-            "Place some orders to see your stats.",
+            PurrSettings.t("orders.noData"),
+            PurrSettings.t("orders.noDataSub"),
           );
           return;
         }
@@ -438,31 +434,31 @@
         const favDt = Object.entries(dtFreq).sort((a, b) => b[1] - a[1])[0];
 
         const cards = [
-          { iconClass: "ph-coffee", label: "Total orders", value: totalOrders },
+          { iconClass: "ph-coffee", label: PurrSettings.t("orders.stat.totalOrders"), value: totalOrders },
           {
             iconClass: "ph-shopping-bag",
-            label: "Items ordered",
+            label: PurrSettings.t("orders.stat.items"),
             value: totalItems,
           },
           {
             iconClass: "ph-coins",
-            label: "Total spent",
+            label: PurrSettings.t("orders.stat.spent"),
             value: fmt(totalSpent),
           },
           {
             iconClass: "ph-chart-bar",
-            label: "Average order",
+            label: PurrSettings.t("orders.stat.avg"),
             value: fmt(avgOrder),
           },
           {
             iconClass: "ph-heart",
-            label: "Favourite item",
+            label: PurrSettings.t("orders.stat.favorite"),
             value: fave ? `${fave[0]} (×${fave[1]})` : "—",
           },
           {
             iconClass: "ph-truck",
-            label: "Preferred delivery",
-            value: favDt ? favDt[0] : "—",
+            label: PurrSettings.t("orders.stat.delivery"),
+            value: favDt ? PurrSettings.deliveryLabel(favDt[0]) : "—",
           },
         ];
 
@@ -516,6 +512,14 @@
       }
 
       // ── INIT ──
+      window.onPurrSettingsChange = function () {
+        updateBadges();
+        renderCart();
+        renderActive();
+        renderHistory();
+        renderStats();
+      };
+
       updateBadges();
       renderCart();
       renderActive();

@@ -537,7 +537,7 @@
   border: 1.5px solid rgba(200, 120, 58, 0.3);
 }
 .toast::before {
-  content: "☕ ";
+  content: "";
 }
 .toast.show {
   opacity: 1;
