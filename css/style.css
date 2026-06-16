@@ -909,9 +909,6 @@ body::before {
   .app {
     grid-template-columns: 1fr;
   }
-  .sidebar {
-    display: none;
-  }
 }
 
 /* ===== LAYOUT INTERNO (páginas sem cart-sidebar) ===== */
@@ -1022,11 +1019,5 @@ body::before {
   .app-inner {
     grid-template-columns: 1fr;
     border-radius: 0;
-  }
-  .app-inner .sidebar {
-    display: none;
-  }
-  .app-inner .content {
-    padding: 24px 20px;
   }
 }

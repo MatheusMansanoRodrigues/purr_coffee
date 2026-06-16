@@ -376,6 +376,7 @@ function renderCart() {
   // badge
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
   cartBadge.textContent = totalQty;
+  if (window.syncCartBadges) window.syncCartBadges();
 }
 
 function cartIncrease(i) {

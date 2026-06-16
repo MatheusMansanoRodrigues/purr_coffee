@@ -1,0 +1,387 @@
+/* ===== MOBILE NAV — menu cookie drawer + carrinho ===== */
+
+.mobile-header,
+.nav-overlay,
+.cart-overlay,
+.sidebar-close,
+.cart-sheet-close,
+.cart-sheet-handle {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  body {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .app,
+  .app-inner {
+    display: block !important;
+    max-width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    isolation: isolate;
+    overflow-x: hidden;
+  }
+
+  /* ── Header mobile ── */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: -4px -4px 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--cream-dark);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cream-bg);
+  }
+
+  .mobile-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--mocha);
+    font-weight: 900;
+    font-size: 16px;
+    min-width: 0;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .mobile-logo img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .mobile-logo span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ── Botão menu cookie ── */
+  .cookie-menu-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    border: 2.5px solid #8b5a3c;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 28%, #5c2e0e 3px, transparent 3.5px),
+      radial-gradient(circle at 62% 35%, #5c2e0e 2.5px, transparent 3px),
+      radial-gradient(circle at 42% 62%, #5c2e0e 2.5px, transparent 3px),
+      radial-gradient(circle at 68% 68%, #5c2e0e 2px, transparent 2.5px),
+      linear-gradient(145deg, #e8a87c 0%, #c8783a 55%, #a0522d 100%);
+    color: var(--cream);
+    cursor: pointer;
+    box-shadow:
+      0 4px 14px rgba(92, 46, 14, 0.28),
+      inset 0 2px 4px rgba(255, 255, 255, 0.35);
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .cookie-menu-btn:active {
+    transform: scale(0.94);
+  }
+
+  .cookie-menu-btn[aria-expanded="true"] {
+    transform: rotate(-12deg) scale(1.04);
+    box-shadow:
+      0 6px 20px rgba(200, 120, 58, 0.45),
+      inset 0 2px 4px rgba(255, 255, 255, 0.35);
+  }
+
+  .cookie-menu-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .cookie-menu-label {
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  /* ── Carrinho no header ── */
+  .mobile-cart-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: 2px solid var(--cream-dark);
+    border-radius: 50%;
+    background: var(--cream-light);
+    color: var(--mocha);
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.2s;
+  }
+
+  .mobile-cart-btn:hover,
+  .mobile-cart-btn:active {
+    border-color: var(--caramel);
+    color: var(--caramel);
+    background: #fff1e0;
+  }
+
+  .mobile-cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--caramel), var(--cappuccino));
+    color: var(--cream);
+    font-size: 10px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--cream-light);
+  }
+
+  .mobile-cart-badge:empty,
+  .mobile-cart-badge[data-qty="0"] {
+    display: none;
+  }
+
+  /* ── Overlay ── */
+  .nav-overlay,
+  .cart-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(44, 18, 3, 0.55);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.25s,
+      visibility 0.25s;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  .nav-overlay.is-visible,
+  .cart-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-overlay {
+    pointer-events: none;
+  }
+
+  .nav-overlay.is-visible {
+    pointer-events: auto;
+  }
+
+  .cart-overlay {
+    z-index: 1001;
+    pointer-events: none;
+  }
+
+  .cart-overlay.is-visible {
+    pointer-events: auto;
+  }
+
+  /* ── Conteúdo ── */
+  .content {
+    position: relative;
+    z-index: 1;
+    padding: 20px 16px 28px !important;
+    width: 100%;
+  }
+
+  /* Sidebar fora do fluxo — não empurra o conteúdo */
+  .sidebar,
+  .app-inner .sidebar {
+    display: flex !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(290px, 88vw);
+    height: 100vh;
+    max-height: 100vh;
+    min-height: 0 !important;
+    z-index: 1002;
+    transform: translateX(-105%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 8px 0 40px rgba(44, 18, 3, 0.35);
+    overflow-y: auto;
+    filter: none;
+    backdrop-filter: none;
+    align-self: auto;
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--cream-dark);
+    border-radius: 50%;
+    background: var(--cream-light);
+    color: var(--brown-mid);
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 2;
+    transition: all 0.2s;
+  }
+
+  .sidebar-close:hover {
+    border-color: var(--caramel);
+    color: var(--caramel);
+  }
+
+  body.menu-open,
+  body.cart-open {
+    overflow: hidden;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 13px 16px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .tabs,
+  .tabs-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+
+  .tabs::-webkit-scrollbar,
+  .tabs-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab,
+  .tab-nav {
+    flex-shrink: 0;
+  }
+
+  .products {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+
+  .settings-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .s-nav-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .toast {
+    left: 16px;
+    right: 16px;
+    bottom: 88px;
+  }
+
+  /* ── Carrinho bottom sheet (index.html) ── */
+  .cart-sidebar {
+    display: flex !important;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    max-height: min(88vh, 640px);
+    z-index: 1003;
+    transform: translateY(105%);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: none;
+    border-top: 2px solid var(--cream-dark);
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -12px 48px rgba(44, 18, 3, 0.35);
+    padding-top: 12px;
+  }
+
+  .cart-sidebar.is-open {
+    transform: translateY(0);
+  }
+
+  .cart-sheet-handle {
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: var(--cream-dark);
+    border-radius: 4px;
+    margin: 0 auto 12px;
+    flex-shrink: 0;
+  }
+
+  .cart-sheet-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 34px;
+    height: 34px;
+    border: 2px solid var(--cream-dark);
+    border-radius: 50%;
+    background: var(--cream-light);
+    color: var(--brown-mid);
+    cursor: pointer;
+    font-size: 15px;
+    z-index: 2;
+  }
+
+  .cart-title {
+    padding-right: 44px;
+  }
+}
